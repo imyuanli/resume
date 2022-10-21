@@ -3,8 +3,8 @@ import {Button, Divider, Drawer} from "antd";
 import React, {useEffect, useState} from "react";
 import './index.css'
 import Title from "../title";
-import MyInput from "../myInput";
-import {DEFAULT_TITLE} from "../../constants/default";
+import FormItem from "../form-item";
+import {DEFAULT_SUBTITLE} from "../../constants/default";
 import _ from 'lodash'
 import store from 'store'
 
@@ -15,7 +15,8 @@ interface props {
 
 const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
     //这个组件的属性
-    const dataKey = 'basicInfo'
+    const headline = 'basicInfo'
+    const data_subtitle = DEFAULT_SUBTITLE[headline]
     //信息管理的按钮
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
@@ -24,8 +25,6 @@ const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
     const onClose = () => {
         setOpen(false);
     };
-    const subtitle = DEFAULT_TITLE[dataKey]
-
     const [showInfo, setShowInfo] = useState(
         store.get("showInfo") ?
             store.get("showInfo")
@@ -56,44 +55,44 @@ const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
             <Title title='基础信息'/>
             <div className='content-box'>
                 {
-                    Object.keys(data[dataKey]).map((item, index) => {
+                    Object.keys(data[headline]).map((item, index) => {
                             if (item === 'avatar') {
                                 return (
-                                    showInfo[item] && <MyInput
+                                    showInfo[item] && <FormItem
                                         handleChangeData={handleChangeData}
                                         isInput
                                         key={index}
-                                        dataKey={dataKey}
+                                        headline={headline}
                                         childKey={item}
                                     />
                                 )
                             } else if (item === 'gender') {
                                 return (
-                                    showInfo[item] && <MyInput
+                                    showInfo[item] && <FormItem
                                         key={index}
                                         handleChangeData={handleChangeData}
                                         isSelect
-                                        dataKey={dataKey}
+                                        headline={headline}
                                         childKey={item}
                                     />
                                 )
                             } else if (item === 'jobDate' || item === 'birthDate') {
                                 return (
-                                    showInfo[item] && <MyInput
+                                    showInfo[item] && <FormItem
                                         handleChangeData={handleChangeData}
                                         isDate
                                         key={index}
-                                        dataKey={dataKey}
+                                        headline={headline}
                                         childKey={item}
                                     />
                                 )
                             } else {
                                 return (
-                                    showInfo[item] && <MyInput
+                                    showInfo[item] && <FormItem
                                         handleChangeData={handleChangeData}
                                         isInput
                                         key={index}
-                                        dataKey={dataKey}
+                                        headline={headline}
                                         childKey={item}
                                     />
                                 )
@@ -102,7 +101,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
                     )
                 }
             </div>
-            <div className='set-info' onClick={showDrawer}>
+            <div className='add-ons' onClick={showDrawer}>
                 <SettingOutlined/>
                 <span>信息管理</span>
             </div>
@@ -122,7 +121,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
                                     <Button onClick={() => handelShow(item)} key={index}
                                             className={'m-2 flex justify-center items-center'}>
                                         <MinusCircleOutlined className='mr-1 '/>
-                                        <span>{subtitle[item]}</span>
+                                        <span>{data_subtitle[item]}</span>
                                     </Button>
                                 )
                             })
@@ -140,7 +139,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
                                     <Button onClick={() => handelShow(item)} key={index}
                                             className={'m-2 flex justify-center items-center'}>
                                         <PlusCircleOutlined className='mr-1 '/>
-                                        <span>{subtitle[item]}</span>
+                                        <span>{data_subtitle[item]}</span>
                                     </Button>
                                 )
                             })

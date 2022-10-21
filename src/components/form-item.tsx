@@ -16,7 +16,6 @@ interface props {
     isSelect?: boolean,
     isInput?: boolean,
     isDate?: boolean,
-    isTextArea?: boolean,
     isRange?: boolean,
 }
 
@@ -27,7 +26,6 @@ const FormItem: React.FunctionComponent<props> = ({
                                                       isSelect = false,
                                                       isInput = false,
                                                       isDate = false,
-                                                      isTextArea = false,
                                                       isRange = false,
                                                   }) => {
     const placeholder = DEFAULT_PLACEHOLDER[dataType]
@@ -78,19 +76,6 @@ const FormItem: React.FunctionComponent<props> = ({
                     placeholder={placeholder[dataKey]}
                     locale={locale}
                     style={{width: '100%'}}
-                />
-            }
-            {
-                isTextArea &&
-                <TextArea
-                    onChange={(e) => {
-                        handleChangeData(dataKey, e.target.value)
-                    }}
-                    style={{resize: 'none'}}
-                    placeholder={placeholder}
-                    showCount
-                    maxLength={1000}
-                    rows={10}
                 />
             }
         </div>

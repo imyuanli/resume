@@ -67,62 +67,51 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
         <div className='basicInfo'>
             <Title title='基础信息'/>
             <div className='content-box'>
-                <div>
-
-                </div>
                 {
                     Object.keys(data[TYPE]).map((item, index) => {
                             if (item === 'avatar') {
                                 return (
                                     showInfo[item] &&
-                                    <div className={'w-1/2'}>
-                                        <FormItem
-                                            handleChangeData={handleChangeData}
-                                            isInput
-                                            key={index}
-                                            dataType={TYPE}
-                                            dataKey={item}
-                                        />
-                                    </div>
+                                    <FormItem
+                                        handleChangeData={handleChangeData}
+                                        isInput
+                                        key={index}
+                                        dataType={TYPE}
+                                        dataKey={item}
+                                    />
                                 )
                             } else if (item === 'gender') {
                                 return (
                                     showInfo[item] &&
-                                    <div className={'w-1/2'}>
-                                        <FormItem
-                                            key={index}
-                                            handleChangeData={handleChangeData}
-                                            isSelect
-                                            dataType={TYPE}
-                                            dataKey={item}
-                                        />
-                                    </div>
+                                    <FormItem
+                                        key={index}
+                                        handleChangeData={handleChangeData}
+                                        isSelect
+                                        dataType={TYPE}
+                                        dataKey={item}
+                                    />
                                 )
                             } else if (item === 'jobDate' || item === 'birthDate') {
                                 return (
                                     showInfo[item] &&
-                                    <div className={'w-1/2'}>
-                                        <FormItem
-                                            handleChangeData={handleChangeData}
-                                            isDate
-                                            key={index}
-                                            dataType={TYPE}
-                                            dataKey={item}
-                                        />
-                                    </div>
+                                    <FormItem
+                                        handleChangeData={handleChangeData}
+                                        isDate
+                                        key={index}
+                                        dataType={TYPE}
+                                        dataKey={item}
+                                    />
                                 )
                             } else {
                                 return (
                                     showInfo[item] &&
-                                    <div className={'w-1/2'}>
-                                        <FormItem
-                                            handleChangeData={handleChangeData}
-                                            isInput
-                                            key={index}
-                                            dataType={TYPE}
-                                            dataKey={item}
-                                        />
-                                    </div>
+                                    <FormItem
+                                        handleChangeData={handleChangeData}
+                                        isInput
+                                        key={index}
+                                        dataType={TYPE}
+                                        dataKey={item}
+                                    />
                                 )
                             }
                         }

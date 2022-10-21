@@ -97,11 +97,7 @@
 }
 .content {
     margin-bottom:18px;
-    width: 90%;
-    display: flex;
-    justify-content: s;
-    align-items: center;
-    flex-direction: column;
+    width: 48%;
 }
 
 .content-title {

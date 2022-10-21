@@ -4,66 +4,93 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import './index.css'
 import React from "react";
 import {DEFAULT_PLACEHOLDER, DEFAULT_SUBTITLE} from "../constants/default";
+import TextArea from "antd/es/input/TextArea";
 
 const {Option} = Select;
+const {RangePicker} = DatePicker;
 
-//type和key,{basicInfo:{userName:'姓名'},...}
 interface props {
     handleChangeData: any,
-    headline: string,
-    childKey: string,
+    dataType: string,
+    dataKey: string,
     isSelect?: boolean,
     isInput?: boolean,
-    isDate?: boolean
+    isDate?: boolean,
+    isTextArea?: boolean,
+    isRange?: boolean,
 }
 
 const FormItem: React.FunctionComponent<props> = ({
                                                       handleChangeData,
-                                                      headline,
-                                                      childKey,
+                                                      dataType,
+                                                      dataKey,
                                                       isSelect = false,
                                                       isInput = false,
-                                                      isDate = false
+                                                      isDate = false,
+                                                      isTextArea = false,
+                                                      isRange = false,
                                                   }) => {
-
-
-    const placeholder = DEFAULT_PLACEHOLDER[headline]
-    const data_subtitle = DEFAULT_SUBTITLE[headline]
+    const placeholder = DEFAULT_PLACEHOLDER[dataType]
+    const data_subtitle = DEFAULT_SUBTITLE[dataType]
     return (
         <div className='content'>
-            <div className='content-title'>{data_subtitle[childKey]}</div>
+            <div className='content-title'>{data_subtitle[dataKey]}</div>
             {
                 isInput &&
                 <Input
                     onChange={(e) => {
-                        handleChangeData(headline, childKey, e.target.value)
+                        handleChangeData(dataKey, e.target.value)
                     }}
                     allowClear
-                    placeholder={placeholder[childKey]}
+                    placeholder={placeholder[dataKey]}
                 />
             }
             {
                 isSelect &&
                 <Select
-                        onChange={(value) => {
-                            handleChangeData(headline, childKey, value)
-                        }}
-                        placeholder={placeholder[childKey]}
-                        style={{width: '100%'}}
+                    onChange={(value) => {
+                        handleChangeData(dataKey, value)
+                    }}
+                    placeholder={placeholder[dataKey]}
+                    style={{width: '100%'}}
                 >
                     <Option value='male'>男</Option>
                     <Option value='female'>女</Option>
                 </Select>
             }
             {
+                isRange &&
+                <RangePicker
+                    onChange={(_, dateString) => {
+                        console.log(dateString)
+                    }}
+                    placeholder={placeholder[dataKey]}
+                    locale={locale}
+                    style={{width: '100%'}}
+                />
+            }
+            {
                 isDate &&
                 <DatePicker
                     onChange={(_, dateString) => {
-                        handleChangeData(headline, childKey, dateString)
+                        handleChangeData(dataKey, dateString)
                     }}
-                    placeholder={placeholder[childKey]}
+                    placeholder={placeholder[dataKey]}
                     locale={locale}
                     style={{width: '100%'}}
+                />
+            }
+            {
+                isTextArea &&
+                <TextArea
+                    onChange={(e) => {
+                        handleChangeData(dataKey, e.target.value)
+                    }}
+                    style={{resize: 'none'}}
+                    placeholder={placeholder}
+                    showCount
+                    maxLength={1000}
+                    rows={10}
                 />
             }
         </div>

@@ -10,13 +10,25 @@ import store from 'store'
 
 interface props {
     data: object
-    handleChangeData: any
+    setData: any
 }
 
-const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
-    //这个组件的属性
-    const headline = 'basicInfo'
-    const data_subtitle = DEFAULT_SUBTITLE[headline]
+const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
+    //属性
+    const TYPE = 'basicInfo'
+    const [basicInfo, setBasicInfo] = useState(data[TYPE])
+    //更新数据
+    const handleChangeData = (key: string, value: any) => {
+        const res = _.cloneDeep(basicInfo)
+        res[key] = value
+        setBasicInfo(_.cloneDeep(res))
+    }
+    useEffect(() => {
+        setData({
+            basicInfo
+        },)
+    }, [basicInfo])
+    const data_subtitle = DEFAULT_SUBTITLE[TYPE]
     //信息管理的按钮
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
@@ -48,53 +60,69 @@ const BaseInfo: React.FunctionComponent<props> = ({data, handleChangeData}) => {
         res[item] = !res[item]
         store.set("showInfo", res)
         setShowInfo(_.cloneDeep(res))
+        handleChangeData(item, "")
     }
 
     return (
         <div className='basicInfo'>
             <Title title='基础信息'/>
             <div className='content-box'>
+                <div>
+
+                </div>
                 {
-                    Object.keys(data[headline]).map((item, index) => {
+                    Object.keys(data[TYPE]).map((item, index) => {
                             if (item === 'avatar') {
                                 return (
-                                    showInfo[item] && <FormItem
-                                        handleChangeData={handleChangeData}
-                                        isInput
-                                        key={index}
-                                        headline={headline}
-                                        childKey={item}
-                                    />
+                                    showInfo[item] &&
+                                    <div className={'w-1/2'}>
+                                        <FormItem
+                                            handleChangeData={handleChangeData}
+                                            isInput
+                                            key={index}
+                                            dataType={TYPE}
+                                            dataKey={item}
+                                        />
+                                    </div>
                                 )
                             } else if (item === 'gender') {
                                 return (
-                                    showInfo[item] && <FormItem
-                                        key={index}
-                                        handleChangeData={handleChangeData}
-                                        isSelect
-                                        headline={headline}
-                                        childKey={item}
-                                    />
+                                    showInfo[item] &&
+                                    <div className={'w-1/2'}>
+                                        <FormItem
+                                            key={index}
+                                            handleChangeData={handleChangeData}
+                                            isSelect
+                                            dataType={TYPE}
+                                            dataKey={item}
+                                        />
+                                    </div>
                                 )
                             } else if (item === 'jobDate' || item === 'birthDate') {
                                 return (
-                                    showInfo[item] && <FormItem
-                                        handleChangeData={handleChangeData}
-                                        isDate
-                                        key={index}
-                                        headline={headline}
-                                        childKey={item}
-                                    />
+                                    showInfo[item] &&
+                                    <div className={'w-1/2'}>
+                                        <FormItem
+                                            handleChangeData={handleChangeData}
+                                            isDate
+                                            key={index}
+                                            dataType={TYPE}
+                                            dataKey={item}
+                                        />
+                                    </div>
                                 )
                             } else {
                                 return (
-                                    showInfo[item] && <FormItem
-                                        handleChangeData={handleChangeData}
-                                        isInput
-                                        key={index}
-                                        headline={headline}
-                                        childKey={item}
-                                    />
+                                    showInfo[item] &&
+                                    <div className={'w-1/2'}>
+                                        <FormItem
+                                            handleChangeData={handleChangeData}
+                                            isInput
+                                            key={index}
+                                            dataType={TYPE}
+                                            dataKey={item}
+                                        />
+                                    </div>
                                 )
                             }
                         }

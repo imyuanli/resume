@@ -1,33 +1,33 @@
-import './index.css'
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Title from "../title";
-import {Input} from 'antd';
-import {DEFAULT_PLACEHOLDER, DEFAULT_SUBTITLE} from "../../constants/default";
-
-const {TextArea} = Input;
+import FormItem from "../form-item";
 
 interface props {
     data: object,
-    handleChangeData: any
+    setData: any
 }
 
-const Advantage: React.FunctionComponent<props> = ({data, handleChangeData}) => {
+const Advantage: React.FunctionComponent<props> = ({data, setData}) => {
     //这个组件的属性
-    const dataKey = 'advantages'
-    const subtitle = DEFAULT_SUBTITLE[dataKey]
-    const placeholder = DEFAULT_PLACEHOLDER[dataKey]
+    const TYPE = 'advantages'
+    const [advantages, setAdvantages] = useState(data['advantages'])
+
+    const handleChangeData = (key: string, value: any) => {
+        setAdvantages(value)
+    }
+    useEffect(() => {
+        setData({
+            advantages
+        })
+    }, [advantages])
     return (
         <div className='advantages mt-12'>
-            <Title title={subtitle}/>
-            <TextArea
-                onChange={(e) => {
-                    handleChangeData(dataKey, "value", e.target.value)
-                }}
-                style={{resize: 'none'}}
-                placeholder={placeholder}
-                showCount
-                maxLength={1000}
-                rows={10}
+            <Title title={"个人优势"}/>
+            <FormItem
+                handleChangeData={handleChangeData}
+                isTextArea
+                dataType={TYPE}
+                dataKey={TYPE}
             />
         </div>
     );

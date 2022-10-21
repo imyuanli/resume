@@ -2,27 +2,6 @@
     margin-top: 32px;
 }
 
-.content-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.content {
-    margin-bottom: 18px;
-    width: 48%;
-}
-
-.content-title {
-    margin-bottom: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.71;
-    color: #1f2329;
-    opacity: 0.45;
-}
 
 
 

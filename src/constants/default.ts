@@ -21,7 +21,7 @@ export const DEFAULT_DATA ={
             qualification:'',
             major:'',
             timeSlot:'',
-            associationActivity:''
+            // associationActivity:''
         }
     ],
 }
@@ -41,15 +41,13 @@ export const DEFAULT_PLACEHOLDER ={
         salary:'请输入薪资',
     },
     advantages:"例如：两年UI设计经验，熟悉IOS和Android的界面设计规范，对产品本色有独特见解，有一定的手绘基础",
-    education:[
-        {
-            schoolName:'',
-            qualification:'',
-            major:'',
-            timeSlot:'',
-            associationActivity:''
-        }
-    ],
+    education:{
+        schoolName:'学校',
+        qualification:'专业',
+        major:'',
+        timeSlot:'',
+        associationActivity:''
+    },
     // internship:[
     //   {
     //     corporateName:'',
@@ -74,7 +72,13 @@ export const DEFAULT_SUBTITLE ={
         salary:'薪资要求',
     },
     advantages:"个人优势",
-    education:"教育经历",
+    education:{
+        schoolName:'学校名称',
+        qualification:'专业',
+        major:'专业',
+        timeSlot:'起止时间',
+        associationActivity:''
+    },
     // internship:[
     //   {
     //     corporateName:'',

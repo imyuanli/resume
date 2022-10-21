@@ -1,0 +1,20 @@
+.title {
+    position: relative;
+    height: 32px;
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.6;
+    color: #1f2329;
+}
+
+
+.title:after {
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    content: '';
+    width: 24px;
+    height: 4px;
+    background-color: #3370ff;
+}

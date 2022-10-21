@@ -24,13 +24,6 @@ export const DEFAULT_DATA ={
             associationActivity:''
         }
     ],
-    // internship:[
-    //   {
-    //     corporateName:'',
-    //     In service time:'',
-    //     Position Type,
-    //   }
-    // ],
 }
 
 export const DEFAULT_PLACEHOLDER ={
@@ -66,7 +59,7 @@ export const DEFAULT_PLACEHOLDER ={
     // ],
 }
 
-export const DEFAULT_TITLE ={
+export const DEFAULT_SUBTITLE ={
     basicInfo:{
         userName:'姓名',
         avatar:'头像',
@@ -81,15 +74,7 @@ export const DEFAULT_TITLE ={
         salary:'薪资要求',
     },
     advantages:"个人优势",
-    education:[
-        {
-            schoolName:'',
-            qualification:'',
-            major:'',
-            timeSlot:'',
-            associationActivity:''
-        }
-    ],
+    education:"教育经历",
     // internship:[
     //   {
     //     corporateName:'',
@@ -99,6 +84,7 @@ export const DEFAULT_TITLE ={
     // ],
 }
 
+//展示的模块
 export const DEFAULT_MODULE_DISPLAY={
     advantages:true,
     education:true

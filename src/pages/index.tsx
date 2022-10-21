@@ -41,7 +41,8 @@ export default function HomePage() {
             <div className='main'>
                 {/*基础信息*/}
                 <BaseInfo data={data} handleChangeData={handleChangeData}/>
-                {/*<Advantage data={data} handleChangeData={handleChangeData} />*/}
+                {/*个人优势*/}
+                <Advantage data={data} handleChangeData={handleChangeData} />
             </div>
         </div>
     );

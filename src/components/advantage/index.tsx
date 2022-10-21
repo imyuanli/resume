@@ -17,19 +17,18 @@ const Advantage: React.FunctionComponent<props> = ({data, handleChangeData}) => 
     const subtitle = DEFAULT_TITLE[dataKey]
     const placeholder = DEFAULT_PLACEHOLDER[dataKey]
     return (
-        <div className='advantages mt-12 w-2/3'>
+        <div className='advantages mt-12'>
             <Title title={subtitle}/>
-            <div className={'flex justify-center items-center w-full'}>
-                <TextArea
-                    onChange={(e) => {
-                        handleChangeData(dataKey, "value", e.target.value)
-                    }}
-                    placeholder={placeholder}
-                    showCount
-                    maxLength={1000}
-                    rows={10}
-                />
-            </div>
+            <TextArea
+                onChange={(e) => {
+                    handleChangeData(dataKey, "value", e.target.value)
+                }}
+                style={{resize: 'none'}}
+                placeholder={placeholder}
+                showCount
+                maxLength={1000}
+                rows={10}
+            />
         </div>
     );
 }

@@ -10,12 +10,11 @@
 }
 
 .main {
-    width: 80%;
+    width: 65%;
     height: 100%;
     max-width: 1016px;
     background: #fff;
     position: relative;
-
     margin: 0 auto 115px;
     border-radius: 4px;
     box-shadow: 0 8px 24px 0 rgb(54 97 174 / 14%);
@@ -37,7 +36,7 @@
 
 .header {
     position: relative;
-    width: 80%;
+    width: 65%;
     margin: 30px auto;
     max-width: 1016px;
     height: 146px;

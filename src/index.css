@@ -16,3 +16,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ant-input-textarea-show-count > .ant-input::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+.ant-input-textarea-show-count::after{
+  font-size: 18px;
+}

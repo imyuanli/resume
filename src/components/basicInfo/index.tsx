@@ -1,7 +1,6 @@
 import {MinusCircleOutlined, PlusCircleOutlined, SettingOutlined} from "@ant-design/icons";
 import {Button, Divider, Drawer} from "antd";
 import React, {useEffect, useState} from "react";
-import './index.css'
 import Title from "../title";
 import FormItem from "../form-item";
 import {DEFAULT_SUBTITLE} from "../../constants/default";
@@ -67,7 +66,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
         {name:'女'},
     ]
     return (
-        <div className='basicInfo'>
+        <div className='mt-12'>
             <Title title='基础信息'/>
             <div className='content-box'>
                 {

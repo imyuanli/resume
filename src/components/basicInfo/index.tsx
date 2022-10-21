@@ -62,7 +62,10 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
         setShowInfo(_.cloneDeep(res))
         handleChangeData(item, "")
     }
-
+    const optionArr=[
+        {name:'男'},
+        {name:'女'},
+    ]
     return (
         <div className='basicInfo'>
             <Title title='基础信息'/>
@@ -89,6 +92,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
                                         isSelect
                                         dataType={TYPE}
                                         dataKey={item}
+                                        optionArr={optionArr}
                                     />
                                 )
                             } else if (item === 'jobDate' || item === 'birthDate') {

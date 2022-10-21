@@ -20,7 +20,7 @@ const Advantage: React.FunctionComponent<props> = ({data, setData}) => {
         })
     }, [advantages])
     return (
-        <div className='advantages mt-12'>
+        <div className='mt-12'>
             <Title title={"个人优势"}/>
             <TextArea
                 onChange={(e) => {

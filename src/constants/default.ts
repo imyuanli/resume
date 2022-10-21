@@ -19,8 +19,8 @@ export const DEFAULT_DATA ={
         {
             schoolName:'',
             qualification:'',
-            timeSlot:'',
             major:'',
+            timeSlot:'',
             associationActivity:''
         }
     ],

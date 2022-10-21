@@ -122,7 +122,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
                 }
             </div>
             <div className='add-ons' onClick={showDrawer}>
-                <SettingOutlined/>
+                <SettingOutlined className='mr-1'/>
                 <span>信息管理</span>
             </div>
             <Drawer title={<div className={'text-xl font-semibold'}>信息管理</div>}

@@ -10,7 +10,7 @@
 }
 
 .main {
-    width: 65%;
+    width: 85%;
     height: 100%;
     max-width: 1016px;
     background: #fff;
@@ -36,7 +36,7 @@
 
 .header {
     position: relative;
-    width: 65%;
+    width: 85%;
     margin: 30px auto;
     max-width: 1016px;
     height: 146px;
@@ -76,4 +76,14 @@
     border: 1px solid #fff;
     cursor: pointer;
     margin-bottom: 5px;
+}
+
+.add-ons {
+    align-items: center;
+    color: #00a6a7;
+    display: flex;
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 120px;
+    cursor: pointer;
 }

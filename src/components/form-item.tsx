@@ -3,39 +3,40 @@ import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import './index.css'
 import React from "react";
-import {DEFAULT_PLACEHOLDER, DEFAULT_TITLE} from "../constants/default";
+import {DEFAULT_PLACEHOLDER, DEFAULT_SUBTITLE} from "../constants/default";
 
 const {Option} = Select;
 
 //type和key,{basicInfo:{userName:'姓名'},...}
 interface props {
     handleChangeData: any,
-    dataKey: string,
+    headline: string,
     childKey: string,
     isSelect?: boolean,
     isInput?: boolean,
     isDate?: boolean
 }
 
-const MyInput: React.FunctionComponent<props> = ({
-                                                     handleChangeData,
-                                                     dataKey,
-                                                     childKey,
-                                                     isSelect = false,
-                                                     isInput = false,
-                                                     isDate = false
-                                                 }) => {
+const FormItem: React.FunctionComponent<props> = ({
+                                                      handleChangeData,
+                                                      headline,
+                                                      childKey,
+                                                      isSelect = false,
+                                                      isInput = false,
+                                                      isDate = false
+                                                  }) => {
 
-    const subtitle = DEFAULT_TITLE[dataKey]
-    const placeholder = DEFAULT_PLACEHOLDER[dataKey]
+
+    const placeholder = DEFAULT_PLACEHOLDER[headline]
+    const data_subtitle = DEFAULT_SUBTITLE[headline]
     return (
         <div className='content'>
-            <div className='content-title'>{subtitle[childKey]}</div>
+            <div className='content-title'>{data_subtitle[childKey]}</div>
             {
                 isInput &&
                 <Input
                     onChange={(e) => {
-                        handleChangeData(dataKey, childKey, e.target.value)
+                        handleChangeData(headline, childKey, e.target.value)
                     }}
                     allowClear
                     placeholder={placeholder[childKey]}
@@ -43,9 +44,9 @@ const MyInput: React.FunctionComponent<props> = ({
             }
             {
                 isSelect &&
-                <Select defaultValue='male'
+                <Select
                         onChange={(value) => {
-                            handleChangeData(dataKey, childKey, value)
+                            handleChangeData(headline, childKey, value)
                         }}
                         placeholder={placeholder[childKey]}
                         style={{width: '100%'}}
@@ -58,13 +59,14 @@ const MyInput: React.FunctionComponent<props> = ({
                 isDate &&
                 <DatePicker
                     onChange={(_, dateString) => {
-                        handleChangeData(dataKey, childKey, dateString)
+                        handleChangeData(headline, childKey, dateString)
                     }}
                     placeholder={placeholder[childKey]}
                     locale={locale}
-                    style={{width: '100%'}}/>
+                    style={{width: '100%'}}
+                />
             }
         </div>
     )
 }
-export default MyInput
+export default FormItem

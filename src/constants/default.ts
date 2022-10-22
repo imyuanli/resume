@@ -64,7 +64,10 @@ export const DEFAULT_DATA = {
             time: '',
             describe: '',
         }
-    ]
+    ],
+    skill:'',
+    hobby:'',
+    honor:''
 }
 
 export const DEFAULT_PLACEHOLDER = {
@@ -126,7 +129,10 @@ export const DEFAULT_PLACEHOLDER = {
         role: '例如：学生会会长',
         time: '',
         describe: '填写项目描述',
-    }
+    },
+    skill:'请输入你的专业技能',
+    hobby:'请输入你的兴趣爱好',
+    honor:'请输入你的荣誉奖项'
 }
 
 export const DEFAULT_SUBTITLE = {
@@ -183,7 +189,10 @@ export const DEFAULT_SUBTITLE = {
         role: '担任角色',
         time: '项目时间',
         describe: '填写项目描述',
-    }
+    },
+    skill:'专业技能',
+    hobby:'兴趣爱好',
+    honor:'荣誉奖项'
 }
 
 //展示的模块

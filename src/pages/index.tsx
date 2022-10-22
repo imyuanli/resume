@@ -3,7 +3,7 @@ import {DownloadOutlined, FieldTimeOutlined} from "@ant-design/icons";
 import {DEFAULT_DATA} from "../constants/default";
 import {useSetState} from "ahooks";
 import BaseInfo from "../components/basicInfo";
-import Advantage from "../components/advantage";
+import Other from "../components/other";
 import Experience from "../components/experience";
 import './index.css'
 
@@ -38,8 +38,12 @@ export default function HomePage() {
                 {/*/!*基础信息*!/*/}
                 <BaseInfo data={data} setData={setData}/>
                 {/*/!*个人优势*!/*/}
-                <Advantage data={data} setData={setData}/>
-
+                <Other
+                    data={data}
+                    setData={setData}
+                    type={'advantages'}
+                    title={'个人优势'}
+                />
                 {/*经历*/}
                 <Experience
                     data={data}
@@ -76,6 +80,24 @@ export default function HomePage() {
                     setData={setData}
                     type={'society'}
                     title={'社团经历'}
+                />
+                <Other
+                    data={data}
+                    setData={setData}
+                    type={'skill'}
+                    title={'专业技能'}
+                />
+                <Other
+                    data={data}
+                    setData={setData}
+                    type={'hobby'}
+                    title={'兴趣爱好'}
+                />
+                <Other
+                    data={data}
+                    setData={setData}
+                    type={'honor'}
+                    title={'荣誉奖项'}
                 />
             </div>
         </div>

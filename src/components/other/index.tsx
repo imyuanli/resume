@@ -1,30 +1,30 @@
 import React, {useEffect, useState} from "react";
 import Title from "../title";
-import FormItem from "../form-item";
 import TextArea from "antd/es/input/TextArea";
 import {DEFAULT_PLACEHOLDER} from "../../constants/default";
 
 interface props {
     data: object,
-    setData: any
+    setData: any,
+    title:string,
+    type:string
 }
 
-const Advantage: React.FunctionComponent<props> = ({data, setData}) => {
+const Other: React.FunctionComponent<props> = ({data, setData,title,type}) => {
     //这个组件的属性
-    const TYPE = 'advantages'
-    const placeholder = DEFAULT_PLACEHOLDER[TYPE]
-    const [advantages, setAdvantages] = useState(data['advantages'])
+    const placeholder = DEFAULT_PLACEHOLDER[type]
+    const [state, setSate] = useState(data[type])
     useEffect(() => {
         setData({
-            advantages
+            type:state
         })
-    }, [advantages])
+    }, [state])
     return (
         <div className='mt-12'>
-            <Title title={"个人优势"}/>
+            <Title title={title}/>
             <TextArea
                 onChange={(e) => {
-                    setAdvantages(e.target.value)
+                    setSate(e.target.value)
                 }}
                 style={{resize: 'none'}}
                 placeholder={placeholder}
@@ -35,4 +35,4 @@ const Advantage: React.FunctionComponent<props> = ({data, setData}) => {
         </div>
     );
 }
-export default Advantage
+export default Other

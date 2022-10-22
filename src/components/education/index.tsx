@@ -4,8 +4,10 @@ import _ from 'lodash'
 import FormItem from "../form-item";
 import {Button, Collapse, Divider, Input, Tooltip} from "antd";
 import MyTextArea from "../text-area";
-import {DeleteOutlined, PlusCircleFilled, SettingOutlined} from "@ant-design/icons";
-const { Panel } = Collapse;
+import {CaretRightOutlined, DeleteOutlined, PlusCircleFilled, SettingOutlined} from "@ant-design/icons";
+
+const {Panel} = Collapse;
+
 interface props {
     data: object
     setData: any
@@ -15,7 +17,13 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
     //属性
     const TYPE = 'education'
     const [education, setEducation] = useState(data[TYPE])
-    const single = {...education[0]}
+    const single = {
+        schoolName:'',
+        qualification:'',
+        major:'',
+        timeSlot:'',
+        associationActivity:''
+    }
     //更新数据
     const handleChangeData = (key: string, value: any, index: any) => {
         const res = _.cloneDeep(education)
@@ -54,27 +62,31 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
                 {
                     education.map((edu: any, index: any) => {
                         return (
-                            <Collapse className='mb-3'>
-                                <Panel header={
-                                    <div className='flex justify-between items-end mb-3'>
-                                        <div>
-                                            <div className={'text-lg text-gray-700 mb-1'}>{edu?.schoolName}</div>
-                                            <div className={'text-sm text-gray-500'}>
-                                                <span>{edu?.qualification}</span>
-                                                <Divider type={'vertical'}/>
-                                                <span>{edu?.major}</span>
-                                                <Divider type={'vertical'}/>
-                                                <span>{edu?.timeSlot}</span>
+                            <Collapse
+                                expandIconPosition={'end'}
+                                className='mb-3 w-full'
+                            >
+                                <Panel
+                                    header={
+                                        <div className='flex justify-between items-center'>
+                                            <div>
+                                                <div className={'text-lg text-gray-700 mb-1'}>{edu?.schoolName}</div>
+                                                <div className={'text-sm text-gray-500'}>
+                                                    <span>{edu?.qualification}</span>
+                                                    <Divider type={'vertical'}/>
+                                                    <span>{edu?.major}</span>
+                                                    <Divider type={'vertical'}/>
+                                                    <span>{edu?.timeSlot}</span>
+                                                </div>
                                             </div>
+                                            <Tooltip title="删除">
+                                                <DeleteOutlined className={'text-gray-700'} onClick={() => {
+                                                    handelDelModule(index)
+                                                }}/>
+                                            </Tooltip>
                                         </div>
-                                        <Tooltip title="删除">
-                                            <DeleteOutlined className={'text-lg text-gray-700'} onClick={() => {
-                                                handelDelModule(index)
-                                            }}/>
-                                        </Tooltip>
-                                    </div>
-                                        }
-                                       key="1">
+                                    }
+                                    key="1">
                                     <div className='content-box'>
                                         {
                                             Object.keys(edu).map((item, d) => {

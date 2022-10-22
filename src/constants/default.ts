@@ -17,13 +17,40 @@ export const DEFAULT_DATA ={
     },
     education:[
         {
-            schoolName:'',
+            name:'',
             qualification:'',
             major:'',
-            timeSlot:'',
-            associationActivity:''
+            time:'',
+            describe:''
         }
     ],
+    internship:[
+        {
+            name:'',
+            time:'',
+            positionType:'',
+            describe:'',
+            result:''
+        }
+    ],
+    project:[
+        {
+            name:'',
+            role:'',
+            time:'',
+            describe:'',
+            result:''
+        }
+    ],
+    work:[
+        {
+            name:'',
+            time:'',
+            positionType:'',
+            describe:'',
+            result:''
+        }
+    ]
 }
 
 export const DEFAULT_PLACEHOLDER ={
@@ -42,24 +69,38 @@ export const DEFAULT_PLACEHOLDER ={
     },
     advantages:"例如：两年UI设计经验，熟悉IOS和Android的界面设计规范，对产品本色有独特见解，有一定的手绘基础",
     education:{
-        schoolName:'学校',
-        qualification:'学历',
-        major:'',
-        timeSlot:'',
-        associationActivity:
+        name:'例如：清华大学',
+        qualification:'选择学历',
+        major:'例如：软件工程',
+        time:'',
+        describe:
             '1、在校期间学习成绩优秀，多次获得校二等、校一等奖学金；\n' +
             '2、担任学生会宣传部干事，负责活动设计类工作；\n' +
             '3、多次参加志愿者活动，获得社会实践先进个人称号；\n' +
             '4、获得优秀毕业设计荣誉。\n'+
             '5、......'
     },
-    // internship:[
-    //   {
-    //     corporateName:'',
-    //     In service time:'',
-    //     Position Type,
-    //   }
-    // ],
+    internship:{
+        name:'例如：北京字节跳动科技有限公司',
+        time:'',
+        positionType:'填写职位名称',
+        describe:'填写实习经历',
+        result:'填写实习成果'
+    },
+    project:{
+        name:'例如：鸢离起始页',
+        role:'例如：前端开发工程师',
+        time:'',
+        describe:'填写项目描述',
+        result:'填写项目业绩'
+    },
+    work:{
+        name:'例如：北京字节跳动科技有限公司',
+        time:'',
+        positionType:'填写职位名称',
+        describe:'填写工作内容',
+        result:'填写工作业绩'
+    }
 }
 
 export const DEFAULT_SUBTITLE ={
@@ -78,23 +119,69 @@ export const DEFAULT_SUBTITLE ={
     },
     advantages:"个人优势",
     education:{
-        schoolName:'学校名称',
+        name:'学校名称',
         qualification:'学历',
         major:'专业',
-        timeSlot:'起止时间',
-        associationActivity:'在校经历'
+        time:'在校时间',
+        describe:'在校经历'
     },
-    // internship:[
-    //   {
-    //     corporateName:'',
-    //     In service time:'',
-    //     Position Type,
-    //   }
-    // ],
+    internship:{
+        name:'公司名称',
+        time:'在职时间',
+        positionType:'职位类型',
+        describe:'实习经历',
+        result:'实习成果'
+    },
+    project:{
+        name:'项目名称',
+        role:'项目角色',
+        time:'项目时间',
+        describe:'项目描述',
+        result:'项目业绩'
+    },
+    work:{
+        name:'公司名称',
+        time:'在职时间',
+        positionType:'职位类型',
+        describe:'工作内容',
+        result:'工作成果'
+    }
 }
 
 //展示的模块
 export const DEFAULT_MODULE_DISPLAY={
     advantages:true,
     education:true
+}
+
+//默认对象
+export const DEFAULT_SINGLE={
+    education:{
+        name:'',
+        qualification:'',
+        major:'',
+        time:'',
+        describe:''
+    },
+    internship:{
+        name:'',
+        time:'',
+        positionType:'',
+        describe:'',
+        result:''
+    },
+    project:{
+        name:'',
+        role:'',
+        time:'',
+        describe:'',
+        result:''
+    },
+    work:{
+        name:'',
+        time:'',
+        positionType:'',
+        describe:'',
+        result:''
+    }
 }

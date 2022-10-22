@@ -6,6 +6,7 @@ import BaseInfo from "../components/basicInfo";
 import {useSetState} from "ahooks";
 import Advantage from "../components/advantage";
 import Education from "../components/education";
+import Experience from "../components/experience";
 
 export default function HomePage() {
     const [data, setData] = useSetState(DEFAULT_DATA)
@@ -39,7 +40,32 @@ export default function HomePage() {
                 <BaseInfo data={data} setData={setData}/>
                 {/*/!*个人优势*!/*/}
                 <Advantage data={data} setData={setData}/>
-                <Education data={data} setData={setData}/>
+
+                {/*经历*/}
+                <Experience
+                    data={data}
+                    setData={setData}
+                    type={'education'}
+                    title={'教育经历'}
+                />
+                <Experience
+                    data={data}
+                    setData={setData}
+                    type={'internship'}
+                    title={'实习经历'}
+                />
+                <Experience
+                    data={data}
+                    setData={setData}
+                    type={'project'}
+                    title={'项目经历'}
+                />
+                <Experience
+                    data={data}
+                    setData={setData}
+                    type={'work'}
+                    title={'工作经历'}
+                />
             </div>
         </div>
     );

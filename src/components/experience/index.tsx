@@ -5,36 +5,33 @@ import FormItem from "../form-item";
 import {Button, Collapse, Divider, Input, Tooltip} from "antd";
 import MyTextArea from "../text-area";
 import {CaretRightOutlined, DeleteOutlined, PlusCircleFilled, SettingOutlined} from "@ant-design/icons";
+import {DEFAULT_SINGLE, DEFAULT_SUBTITLE} from "../../constants/default";
 
 const {Panel} = Collapse;
 
 interface props {
     data: object
-    setData: any
+    setData: any,
+    type: string,
+    title: string,
 }
 
-const Education: React.FunctionComponent<props> = ({data, setData}) => {
-    //属性
-    const TYPE = 'education'
-    const [education, setEducation] = useState(data[TYPE])
-    const single = {
-        schoolName:'',
-        qualification:'',
-        major:'',
-        timeSlot:'',
-        associationActivity:''
-    }
+const Experience: React.FunctionComponent<props> = ({data, setData, type, title}) => {
+    const [state, setState] = useState(data[type])
+    const single = DEFAULT_SINGLE[type]
+    const subtitle = DEFAULT_SUBTITLE[type]
     //更新数据
     const handleChangeData = (key: string, value: any, index: any) => {
-        const res = _.cloneDeep(education)
+        const res = _.cloneDeep(state)
         res[index][key] = value
-        setEducation(_.cloneDeep(res))
+        setState(_.cloneDeep(res))
     }
     useEffect(() => {
         setData({
-            education
+            [type]: state
         },)
-    }, [education])
+    }, [state])
+    //教育独有
     const optionArr = [
         {name: '初中及以下'},
         {name: '中专/中技'},
@@ -43,24 +40,23 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
         {name: '本科'},
         {name: '本科以上'},
     ]
-
     //增加新的
     const handelAddModule = () => {
-        const res = _.cloneDeep(education)
+        const res = _.cloneDeep(state)
         res.push(single)
-        setEducation(_.cloneDeep(res))
+        setState(_.cloneDeep(res))
     }
     const handelDelModule = (index: any) => {
-        const res = _.cloneDeep(education)
+        const res = _.cloneDeep(state)
         res.splice(index, 1)
-        setEducation(_.cloneDeep(res))
+        setState(_.cloneDeep(res))
     }
     return (
         <div className='mt-12'>
-            <Title title='教育经历'/>
+            <Title title={title}/>
             <div className='content-box'>
                 {
-                    education.map((edu: any, index: any) => {
+                    state.map((s: any, index: any) => {
                         return (
                             <Collapse
                                 expandIconPosition={'end'}
@@ -70,13 +66,29 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
                                     header={
                                         <div className='flex justify-between items-center'>
                                             <div>
-                                                <div className={'text-lg text-gray-700 mb-1'}>{edu?.schoolName}</div>
+                                                <div
+                                                    className={'text-base text-gray-700 mb-1'}>{s.name ? s.name : `未填写${subtitle?.name}`}</div>
                                                 <div className={'text-sm text-gray-500'}>
-                                                    <span>{edu?.qualification}</span>
+                                                    {
+                                                        type === 'education' &&
+                                                        <>
+                                                            <span>{s.qualification ? s.qualification : '学历'}</span>
+                                                            <Divider type={'vertical'}/>
+                                                            <span>{s.major ? s.major : '专业'}</span>
+                                                        </>
+                                                    }
+                                                    {
+                                                        (type === 'internship' || type === 'work')
+                                                        &&
+                                                        <span>{s.positionType ? s.positionType : '职位类型'}</span>
+                                                    }
+                                                    {
+                                                        type === 'project'
+                                                        &&
+                                                        <span>{s.role ? s.role : subtitle.role}</span>
+                                                    }
                                                     <Divider type={'vertical'}/>
-                                                    <span>{edu?.major}</span>
-                                                    <Divider type={'vertical'}/>
-                                                    <span>{edu?.timeSlot}</span>
+                                                    <span>{s.time ? s.time : subtitle?.time}</span>
                                                 </div>
                                             </div>
                                             <Tooltip title="删除">
@@ -89,14 +101,24 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
                                     key="1">
                                     <div className='content-box'>
                                         {
-                                            Object.keys(edu).map((item, d) => {
-                                                if (item === 'timeSlot') {
+                                            Object.keys(s).map((item, d) => {
+                                                if (item === 'time') {
                                                     return (
                                                         <FormItem
                                                             key={d}
                                                             handleChangeData={handleChangeData}
                                                             isRange
-                                                            dataType={TYPE}
+                                                            dataType={type}
+                                                            dataKey={item}
+                                                            index={index}
+                                                        />
+                                                    )
+                                                } else if (item === 'describe' || item === 'result') {
+                                                    return (
+                                                        <MyTextArea
+                                                            key={d}
+                                                            handleChangeData={handleChangeData}
+                                                            dataType={type}
                                                             dataKey={item}
                                                             index={index}
                                                         />
@@ -107,20 +129,10 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
                                                             key={d}
                                                             handleChangeData={handleChangeData}
                                                             isSelect
-                                                            dataType={TYPE}
+                                                            dataType={type}
                                                             dataKey={item}
                                                             index={index}
                                                             optionArr={optionArr}
-                                                        />
-                                                    )
-                                                } else if (item === 'associationActivity') {
-                                                    return (
-                                                        <MyTextArea
-                                                            key={d}
-                                                            handleChangeData={handleChangeData}
-                                                            dataType={TYPE}
-                                                            dataKey={item}
-                                                            index={index}
                                                         />
                                                     )
                                                 } else {
@@ -129,7 +141,7 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
                                                             key={d}
                                                             handleChangeData={handleChangeData}
                                                             isInput
-                                                            dataType={TYPE}
+                                                            dataType={type}
                                                             dataKey={item}
                                                             index={index}
                                                         />
@@ -139,7 +151,6 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
                                         }
                                     </div>
                                 </Panel>
-
                             </Collapse>
                         )
                     })
@@ -147,10 +158,9 @@ const Education: React.FunctionComponent<props> = ({data, setData}) => {
             </div>
             <div className='add-ons' onClick={handelAddModule}>
                 <PlusCircleFilled className='mr-1'/>
-                <span>增加新的教育经历</span>
+                <span>增加新的{title}</span>
             </div>
-
         </div>
     )
 }
-export default Education
+export default Experience

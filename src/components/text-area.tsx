@@ -23,7 +23,7 @@ const MyTextArea: React.FunctionComponent<props> = ({handleChangeData,dataKey,in
                 style={{resize: 'none'}}
                 placeholder={placeholder[dataKey]}
                 showCount
-                maxLength={600}
+                maxLength={2500}
                 rows={10}
             />
         </div>

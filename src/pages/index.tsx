@@ -1,12 +1,11 @@
 import {DownloadOutlined, FieldTimeOutlined} from "@ant-design/icons";
-import './index.css'
-import {DEFAULT_DATA} from "../constants/default";
-import BaseInfo from "../components/basicInfo";
 
+import {DEFAULT_DATA} from "../constants/default";
 import {useSetState} from "ahooks";
+import BaseInfo from "../components/basicInfo";
 import Advantage from "../components/advantage";
-import Education from "../components/education";
 import Experience from "../components/experience";
+import './index.css'
 
 export default function HomePage() {
     const [data, setData] = useSetState(DEFAULT_DATA)

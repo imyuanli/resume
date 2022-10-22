@@ -1,15 +1,63 @@
-import {DownloadOutlined, FieldTimeOutlined} from "@ant-design/icons";
+import {DownloadOutlined, FieldTimeOutlined, PlusOutlined} from "@ant-design/icons";
 
-import {DEFAULT_DATA} from "../constants/default";
+import {DEFAULT_DATA, DEFAULT_MODULE_DISPLAY, DEFAULT_TITLE} from "../constants/default";
 import {useSetState} from "ahooks";
 import BaseInfo from "../components/basicInfo";
 import Other from "../components/other";
 import Experience from "../components/experience";
 import './index.css'
+import React, {useEffect, useState} from "react";
+import _ from "lodash";
+import Title from "../components/title";
+import TextArea from "antd/es/input/TextArea";
+import {Button} from "antd";
 
 export default function HomePage() {
     const [data, setData] = useSetState(DEFAULT_DATA)
+    const [module, setModule] = useState(DEFAULT_MODULE_DISPLAY)
+    //让显示的模块拥有顺序
+    const [blockModule, setBlockModule] = useState([])
+    //默认标题
+    const titleArr = DEFAULT_TITLE
+    useEffect(() => {
+        let arr: any = []
+        Object.keys(module).map((item) => {
+            if (module[item]) arr.push(item)
+        })
+        setBlockModule(_.cloneDeep(arr))
+    }, [])
 
+    useEffect(() => {
+        console.log(module)
+        console.log(blockModule)
+    }, [module, blockModule])
+
+    //删除模块 （并让模块用）
+    const handleDelModule = (item: string, index: number) => {
+        const arr = _.cloneDeep(blockModule)
+        arr.splice(index, 1)
+        setBlockModule(_.cloneDeep(arr))
+        handleChangeModule(item, true)
+    }
+
+    //控制模块内部的显示
+    const handleChangeModule = (item: string, isDel = false) => {
+        const obj = _.cloneDeep(module)
+        if (isDel) {
+            obj[item] = false
+        } else {
+            obj[item] = true
+        }
+        setModule(_.cloneDeep(obj))
+    }
+
+    //新增模块
+    const handleAddModule = (item: string) => {
+        const arr = _.cloneDeep(blockModule)
+        arr.push(item)
+        setBlockModule(_.cloneDeep(arr))
+        handleChangeModule(item)
+    }
     return (
         <div className='index'>
             <div className='header'>
@@ -37,68 +85,58 @@ export default function HomePage() {
             <div className='main'>
                 {/*/!*基础信息*!/*/}
                 <BaseInfo data={data} setData={setData}/>
-                {/*/!*个人优势*!/*/}
-                <Other
-                    data={data}
-                    setData={setData}
-                    type={'advantages'}
-                    title={'个人优势'}
-                />
-                {/*经历*/}
-                <Experience
-                    data={data}
-                    setData={setData}
-                    type={'education'}
-                    title={'教育经历'}
-                />
-                <Experience
-                    data={data}
-                    setData={setData}
-                    type={'internship'}
-                    title={'实习经历'}
-                />
-                <Experience
-                    data={data}
-                    setData={setData}
-                    type={'project'}
-                    title={'项目经历'}
-                />
-                <Experience
-                    data={data}
-                    setData={setData}
-                    type={'work'}
-                    title={'工作经历'}
-                />
-                <Experience
-                    data={data}
-                    setData={setData}
-                    type={'volunteer'}
-                    title={'志愿者经历'}
-                />
-                <Experience
-                    data={data}
-                    setData={setData}
-                    type={'society'}
-                    title={'社团经历'}
-                />
-                <Other
-                    data={data}
-                    setData={setData}
-                    type={'skill'}
-                    title={'专业技能'}
-                />
-                <Other
-                    data={data}
-                    setData={setData}
-                    type={'hobby'}
-                    title={'兴趣爱好'}
-                />
-                <Other
-                    data={data}
-                    setData={setData}
-                    type={'honor'}
-                    title={'荣誉奖项'}
-                />
+                {
+                    blockModule?.map((item, index) => {
+                        if (item === "advantages" || item === "skill" || item === "hobby" || item === "honor") {
+                            return (
+                                <Other
+                                    data={data}
+                                    setData={setData}
+                                    type={item}
+                                    title={titleArr[item]}
+                                    handleDelModule={() => {
+                                        handleDelModule(item, index)
+                                    }}
+                                />
+                            )
+                        } else {
+                            return (
+                                <Experience
+                                    data={data}
+                                    setData={setData}
+                                    type={item}
+                                    title={titleArr[item]}
+                                    handleDelModule={() => {
+                                        handleDelModule(item, index)
+                                    }}
+                                />
+                            )
+                        }
+                    })
+                }
+                <div className='mt-12'>
+                    <Title title={'添加模块'}/>
+                    <div className={'flex flex-wrap'}>
+                        {
+                            Object.keys(module).map((item, index) => {
+                                return (
+                                    !module[item] &&
+                                    <Button
+                                        key={index}
+                                        onClick={() => {
+                                            handleAddModule(item)
+                                        }}
+                                        type="dashed"
+                                        className={'m-3'}
+                                        icon={<PlusOutlined className={'mr-1'} />}
+                                    >
+                                        {titleArr[item]}
+                                    </Button >
+                                )
+                            })
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );

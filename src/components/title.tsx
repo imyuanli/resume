@@ -1,13 +1,24 @@
 import './index.css'
 import React from "react";
+import {Tooltip} from "antd";
+import {DeleteOutlined} from "@ant-design/icons";
 
 interface props {
-    title: string
+    title: string,
+    handleDelModule?:any
 }
 
-const Title: React.FunctionComponent<props> = ({title}) => {
+const Title: React.FunctionComponent<props> = ({title,handleDelModule}) => {
     return (
-        <div className='title'>{title}</div>
+        <div className='w-full flex justify-between items-center'>
+            <div className='title'>{title}</div>
+            {
+                handleDelModule &&
+                <Tooltip title="删除模块">
+                    <DeleteOutlined className={'text-gray-700 text-lg'} onClick={handleDelModule}/>
+                </Tooltip>
+            }
+        </div>
     )
 }
 export default Title

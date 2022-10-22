@@ -65,9 +65,82 @@ export const DEFAULT_DATA = {
             describe: '',
         }
     ],
-    skill:'',
-    hobby:'',
-    honor:''
+    skill: '',
+    hobby: '',
+    honor: ''
+}
+
+export const DEFAULT_TITLE = {
+    advantages: "个人优势",
+    education: "教育经历",
+    internship: "实习经历",
+    project:"项目经历",
+    work: "工作经历",
+    volunteer:"志愿者经历",
+    society: "社团经历",
+    skill: '专业技能',
+    hobby: '兴趣爱好',
+    honor: '荣誉奖项'
+}
+
+export const DEFAULT_SUBTITLE = {
+    basicInfo: {
+        userName: '姓名',
+        avatar: '头像',
+        position: '期望职位',
+        gender: '性别',
+        email: '邮箱',
+        phone: '电话',
+        weChatNumber: '微信号',
+        jobDate: '参加工作日期',
+        birthDate: '出生日期',
+        city: '期望工作城市',
+        salary: '薪资要求',
+    },
+    advantages: "个人优势",
+    education: {
+        name: '学校名称',
+        qualification: '学历',
+        major: '专业',
+        time: '在校时间',
+        describe: '在校经历'
+    },
+    internship: {
+        name: '公司名称',
+        time: '在职时间',
+        positionType: '职位类型',
+        describe: '实习经历',
+        result: '实习成果'
+    },
+    project: {
+        name: '项目名称',
+        role: '项目角色',
+        time: '项目时间',
+        describe: '项目描述',
+        result: '项目业绩'
+    },
+    work: {
+        name: '公司名称',
+        time: '在职时间',
+        positionType: '职位类型',
+        describe: '工作内容',
+        result: '工作成果'
+    },
+    volunteer: {
+        name: '项目名称',
+        duration: '总服务时长',
+        time: '项目时间',
+        describe: '项目描述',
+    },
+    society: {
+        name: '社团名称',
+        role: '担任角色',
+        time: '项目时间',
+        describe: '填写项目描述',
+    },
+    skill: '专业技能',
+    hobby: '兴趣爱好',
+    honor: '荣誉奖项'
 }
 
 export const DEFAULT_PLACEHOLDER = {
@@ -130,75 +203,9 @@ export const DEFAULT_PLACEHOLDER = {
         time: '',
         describe: '填写项目描述',
     },
-    skill:'请输入你的专业技能',
-    hobby:'请输入你的兴趣爱好',
-    honor:'请输入你的荣誉奖项'
-}
-
-export const DEFAULT_SUBTITLE = {
-    basicInfo: {
-        userName: '姓名',
-        avatar: '头像',
-        position: '期望职位',
-        gender: '性别',
-        email: '邮箱',
-        phone: '电话',
-        weChatNumber: '微信号',
-        jobDate: '参加工作日期',
-        birthDate: '出生日期',
-        city: '期望工作城市',
-        salary: '薪资要求',
-    },
-    advantages: "个人优势",
-    education: {
-        name: '学校名称',
-        qualification: '学历',
-        major: '专业',
-        time: '在校时间',
-        describe: '在校经历'
-    },
-    internship: {
-        name: '公司名称',
-        time: '在职时间',
-        positionType: '职位类型',
-        describe: '实习经历',
-        result: '实习成果'
-    },
-    project: {
-        name: '项目名称',
-        role: '项目角色',
-        time: '项目时间',
-        describe: '项目描述',
-        result: '项目业绩'
-    },
-    work: {
-        name: '公司名称',
-        time: '在职时间',
-        positionType: '职位类型',
-        describe: '工作内容',
-        result: '工作成果'
-    },
-    volunteer: {
-        name: '项目名称',
-        duration: '总服务时长',
-        time: '项目时间',
-        describe: '项目描述',
-    },
-    society: {
-        name: '社团名称',
-        role: '担任角色',
-        time: '项目时间',
-        describe: '填写项目描述',
-    },
-    skill:'专业技能',
-    hobby:'兴趣爱好',
-    honor:'荣誉奖项'
-}
-
-//展示的模块
-export const DEFAULT_MODULE_DISPLAY = {
-    advantages: true,
-    education: true
+    skill: '请输入你的专业技能',
+    hobby: '请输入你的兴趣爱好',
+    honor: '请输入你的荣誉奖项'
 }
 
 //默认对象
@@ -243,4 +250,18 @@ export const DEFAULT_SINGLE = {
         time: '',
         describe: '',
     }
+}
+
+//展示的模块
+export const DEFAULT_MODULE_DISPLAY = {
+    advantages: true,
+    education: true,
+    internship: true,
+    project: true,
+    work: true,
+    volunteer: false,
+    society: false,
+    skill: false,
+    hobby: false,
+    honor: false,
 }

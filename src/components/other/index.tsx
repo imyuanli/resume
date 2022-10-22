@@ -7,10 +7,11 @@ interface props {
     data: object,
     setData: any,
     title:string,
-    type:string
+    type:string,
+    handleDelModule:any
 }
 
-const Other: React.FunctionComponent<props> = ({data, setData,title,type}) => {
+const Other: React.FunctionComponent<props> = ({data, setData,title,type,handleDelModule}) => {
     //这个组件的属性
     const placeholder = DEFAULT_PLACEHOLDER[type]
     const [state, setSate] = useState(data[type])
@@ -21,7 +22,7 @@ const Other: React.FunctionComponent<props> = ({data, setData,title,type}) => {
     }, [state])
     return (
         <div className='mt-12'>
-            <Title title={title}/>
+            <Title title={title} handleDelModule={handleDelModule}/>
             <TextArea
                 onChange={(e) => {
                     setSate(e.target.value)

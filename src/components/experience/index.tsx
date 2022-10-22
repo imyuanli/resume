@@ -14,9 +14,10 @@ interface props {
     setData: any,
     type: string,
     title: string,
+    handleDelModule?:any
 }
 
-const Experience: React.FunctionComponent<props> = ({data, setData, type, title}) => {
+const Experience: React.FunctionComponent<props> = ({data, setData, type, title,handleDelModule}) => {
     const [state, setState] = useState(data[type])
     const single = DEFAULT_SINGLE[type]
     const subtitle = DEFAULT_SUBTITLE[type]
@@ -53,7 +54,7 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title}
     }
     return (
         <div className='mt-12'>
-            <Title title={title}/>
+            <Title title={title} handleDelModule={handleDelModule}/>
             <div className='content-box'>
                 {
                     state.map((s: any, index: any) => {

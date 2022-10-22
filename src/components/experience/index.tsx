@@ -72,18 +72,28 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title}
                                                     {
                                                         type === 'education' &&
                                                         <>
-                                                            <span>{s.qualification ? s.qualification : '学历'}</span>
+                                                            <span>{s.qualification ? s.qualification : subtitle?.qualification}</span>
                                                             <Divider type={'vertical'}/>
-                                                            <span>{s.major ? s.major : '专业'}</span>
+                                                            <span>{s.major ? s.major : subtitle?.major}</span>
                                                         </>
                                                     }
                                                     {
                                                         (type === 'internship' || type === 'work')
                                                         &&
-                                                        <span>{s.positionType ? s.positionType : '职位类型'}</span>
+                                                        <span>{s.positionType ? s.positionType : subtitle?.positionType}</span>
                                                     }
                                                     {
                                                         type === 'project'
+                                                        &&
+                                                        <span>{s.role ? s.role : subtitle.role}</span>
+                                                    }
+                                                    {
+                                                        type === 'volunteer'
+                                                        &&
+                                                        <span>{s.duration ? s.duration : subtitle.duration}</span>
+                                                    }
+                                                    {
+                                                        type === 'society'
                                                         &&
                                                         <span>{s.role ? s.role : subtitle.role}</span>
                                                     }

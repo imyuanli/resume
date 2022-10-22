@@ -65,6 +65,18 @@ export default function HomePage() {
                     type={'work'}
                     title={'工作经历'}
                 />
+                <Experience
+                    data={data}
+                    setData={setData}
+                    type={'volunteer'}
+                    title={'志愿者经历'}
+                />
+                <Experience
+                    data={data}
+                    setData={setData}
+                    type={'society'}
+                    title={'社团经历'}
+                />
             </div>
         </div>
     );

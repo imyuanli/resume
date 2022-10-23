@@ -6,11 +6,12 @@ import BaseInfo from "../components/basicInfo";
 import Other from "../components/other";
 import Experience from "../components/experience";
 import './index.css'
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import _ from "lodash";
 import Title from "../components/title";
 import TextArea from "antd/es/input/TextArea";
 import {Button} from "antd";
+import {exportPDF} from "../utils";
 
 export default function HomePage() {
     const [data, setData] = useSetState(DEFAULT_DATA)
@@ -58,6 +59,14 @@ export default function HomePage() {
         setBlockModule(_.cloneDeep(arr))
         handleChangeModule(item)
     }
+
+
+    //导出
+    const pdfRef = useRef(null)
+
+    const onExportPDF = async () => {
+        await exportPDF('测试导出PDF', pdfRef.current)
+    }
     return (
         <div className='index'>
             <div className='header'>
@@ -69,9 +78,7 @@ export default function HomePage() {
                     </div>
                 </div>
                 <div className='header-right'>
-                    <div className='header-right-btn' onClick={() => {
-                        console.log(data)
-                    }}>
+                    <div className='header-right-btn' onClick={onExportPDF}>
                         <DownloadOutlined className='mr-1'/>
                         导出
                     </div>
@@ -82,7 +89,7 @@ export default function HomePage() {
                 </div>
             </div>
             <div className='banner'/>
-            <div className='main'>
+            <div className='main' ref={pdfRef}>
                 {/*/!*基础信息*!/*/}
                 <BaseInfo data={data} setData={setData}/>
                 {

@@ -107,7 +107,6 @@ export default function HomePage() {
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId={_.uniqueId("droppableId")}>
                         {(provided: any,snapshot:any) => {
-
                             return (
                                 <div
                                     ref={provided.innerRef}

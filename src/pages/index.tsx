@@ -1,5 +1,4 @@
-import {DownloadOutlined, FieldTimeOutlined, PlusOutlined} from "@ant-design/icons";
-
+import {DeleteOutlined, DownloadOutlined, DragOutlined, FieldTimeOutlined, PlusOutlined} from "@ant-design/icons";
 import {DEFAULT_DATA, DEFAULT_MODULE_DISPLAY, DEFAULT_TITLE} from "../constants/default";
 import {useSetState} from "ahooks";
 import BaseInfo from "../components/basicInfo";
@@ -9,8 +8,8 @@ import './index.css'
 import React, {useEffect, useRef, useState} from "react";
 import _ from "lodash";
 import Title from "../components/title";
-import TextArea from "antd/es/input/TextArea";
-import {Button} from "antd";
+import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import {Button, Tooltip} from "antd";
 import {exportPDF} from "../utils";
 
 export default function HomePage() {
@@ -28,10 +27,10 @@ export default function HomePage() {
         setBlockModule(_.cloneDeep(arr))
     }, [])
 
-    useEffect(() => {
-        console.log(module)
-        console.log(blockModule)
-    }, [module, blockModule])
+    // useEffect(() => {
+    //     console.log(module)
+    //     console.log(blockModule)
+    // }, [module, blockModule])
 
     //删除模块 （并让模块用）
     const handleDelModule = (item: string, index: number) => {
@@ -67,6 +66,19 @@ export default function HomePage() {
     const onExportPDF = async () => {
         await exportPDF('测试导出PDF', pdfRef.current)
     }
+
+    //拖拽
+    const onDragEnd = (result: any) => {
+        const sourceIndex = result.source.index;
+        const destinationIndex = result.destination.index;
+        if (sourceIndex === destinationIndex) {
+            return;
+        }
+        const userList = _.cloneDeep(blockModule);
+        const [draggedItem] = userList.splice(sourceIndex, 1);
+        userList.splice(destinationIndex, 0, draggedItem);
+        setBlockModule(_.cloneDeep(userList))
+    }
     return (
         <div className='index'>
             <div className='header'>
@@ -92,37 +104,84 @@ export default function HomePage() {
             <div className='main' ref={pdfRef}>
                 {/*/!*基础信息*!/*/}
                 <BaseInfo data={data} setData={setData}/>
-                {
-                    blockModule?.map((item, index) => {
-                        if (item === "advantages" || item === "skill" || item === "hobby" || item === "honor") {
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId={_.uniqueId("droppableId")}>
+                        {(provided: any) => {
                             return (
-                                <Other
-                                    data={data}
-                                    setData={setData}
-                                    type={item}
-                                    title={titleArr[item]}
-                                    handleDelModule={() => {
-                                        handleDelModule(item, index)
-                                    }}
-                                />
+                                <div
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                >
+                                    {
+                                        blockModule?.map((item, index) => {
+                                            return (
+                                                <Draggable key={item} draggableId={item} index={index}>
+                                                    {(provided, snapshot) => {
+                                                        return (
+                                                            <div className={'mt-12'}
+                                                                 ref={provided.innerRef}
+                                                                 {...provided.draggableProps}
+                                                            >
+                                                                <div
+                                                                    className='w-full flex justify-between items-center mb-9'>
+                                                                    <div className='title'>{titleArr[item]}</div>
+                                                                    <div className={'flex flex-row'}>
+                                                                        <div {...provided.dragHandleProps}>
+                                                                            <Tooltip
+                                                                                className={'mr-3'}
+                                                                                title="移动模块"
+                                                                            >
+                                                                                <DragOutlined
+                                                                                    className={'text-gray-700 text-2xl change-c'}
+                                                                                />
+                                                                            </Tooltip>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Tooltip title="删除模块">
+                                                                                <DeleteOutlined
+                                                                                    className={'text-gray-700 text-2xl change-c'}
+                                                                                    onClick={
+                                                                                        () => {
+                                                                                            handleDelModule(item, index)
+                                                                                        }
+                                                                                    }/>
+                                                                            </Tooltip>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {
+                                                                    (item === "advantages" || item === "skill" || item === "hobby" || item === "honor") ?
+                                                                        <Other
+                                                                            data={data}
+                                                                            setData={setData}
+                                                                            type={item}
+                                                                            title={titleArr[item]}
+                                                                        />
+                                                                        :
+                                                                        <Experience
+                                                                            data={data}
+                                                                            setData={setData}
+                                                                            type={item}
+                                                                            title={titleArr[item]}
+                                                                        />
+                                                                }
+                                                            </div>
+                                                        )
+                                                    }}
+                                                </Draggable>
+                                            )
+                                        })
+                                    }
+                                    {provided.placeholder}
+                                </div>
                             )
-                        } else {
-                            return (
-                                <Experience
-                                    data={data}
-                                    setData={setData}
-                                    type={item}
-                                    title={titleArr[item]}
-                                    handleDelModule={() => {
-                                        handleDelModule(item, index)
-                                    }}
-                                />
-                            )
-                        }
-                    })
-                }
+                        }}
+                    </Droppable>
+                </DragDropContext>
                 <div className='mt-12'>
-                    <Title title={'添加模块'}/>
+                    <div className='w-full flex justify-between items-center mb-6'>
+                        <div className='title'>添加模块</div>
+                    </div>
                     <div className={'flex flex-wrap'}>
                         {
                             Object.keys(module).map((item, index) => {
@@ -135,10 +194,10 @@ export default function HomePage() {
                                         }}
                                         type="dashed"
                                         className={'m-3'}
-                                        icon={<PlusOutlined className={'mr-1'} />}
+                                        icon={<PlusOutlined className={'mr-1'}/>}
                                     >
                                         {titleArr[item]}
-                                    </Button >
+                                    </Button>
                                 )
                             })
                         }

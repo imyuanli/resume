@@ -14,10 +14,9 @@ interface props {
     setData: any,
     type: string,
     title: string,
-    handleDelModule?: any
 }
 
-const Experience: React.FunctionComponent<props> = ({data, setData, type, title, handleDelModule}) => {
+const Experience: React.FunctionComponent<props> = ({data, setData, type, title}) => {
     const [state, setState] = useState(data[type])
     const single = DEFAULT_SINGLE[type]
     const subtitle = DEFAULT_SUBTITLE[type]
@@ -53,8 +52,7 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title,
         setState(_.cloneDeep(res))
     }
     return (
-        <div className='mt-12'>
-            <Title title={title} handleDelModule={handleDelModule}/>
+        <>
             <div className='content-box'>
                 {
                     state.map((s: any, index: any) => {
@@ -70,6 +68,7 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title,
                                             className={'change-c'}
                                         />
                                 }
+                                key={index}
                             >
                                 <Panel
                                     header={
@@ -179,7 +178,7 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title,
                 <PlusCircleFilled className='mr-1'/>
                 <span>增加新的{title}</span>
             </div>
-        </div>
+        </>
     )
 }
 export default Experience

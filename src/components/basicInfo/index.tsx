@@ -1,5 +1,11 @@
-import {MinusCircleOutlined, PlusCircleOutlined, SettingOutlined} from "@ant-design/icons";
-import {Button, Divider, Drawer} from "antd";
+import {
+    DeleteOutlined,
+    DragOutlined,
+    MinusCircleOutlined,
+    PlusCircleOutlined,
+    SettingOutlined
+} from "@ant-design/icons";
+import {Button, Divider, Drawer, Tooltip} from "antd";
 import React, {useEffect, useState} from "react";
 import Title from "../title";
 import FormItem from "../form-item";
@@ -61,13 +67,15 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
         setShowInfo(_.cloneDeep(res))
         handleChangeData(item, "")
     }
-    const optionArr=[
-        {name:'男'},
-        {name:'女'},
+    const optionArr = [
+        {name: '男'},
+        {name: '女'},
     ]
     return (
         <div className='mt-12'>
-            <Title title='基础信息'/>
+            <div className='w-full flex justify-between items-center mb-6'>
+                <div className='title'>基础信息</div>
+            </div>
             <div className='content-box'>
                 {
                     Object.keys(data[TYPE]).map((item, index) => {

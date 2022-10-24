@@ -106,7 +106,8 @@ export default function HomePage() {
                 <BaseInfo data={data} setData={setData}/>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId={_.uniqueId("droppableId")}>
-                        {(provided: any) => {
+                        {(provided: any,snapshot:any) => {
+
                             return (
                                 <div
                                     ref={provided.innerRef}
@@ -116,30 +117,29 @@ export default function HomePage() {
                                         blockModule?.map((item, index) => {
                                             return (
                                                 <Draggable key={item} draggableId={item} index={index}>
-                                                    {(provided, snapshot) => {
+                                                    {(provided, snapshot,) => {
                                                         return (
                                                             <div className={'mt-12'}
                                                                  ref={provided.innerRef}
                                                                  {...provided.draggableProps}
                                                             >
-                                                                <div
-                                                                    className='w-full flex justify-between items-center mb-9'>
-                                                                    <div className='title'>{titleArr[item]}</div>
-                                                                    <div className={'flex flex-row'}>
+                                                                <div className='w-full flex justify-between items-center mb-4'>
+                                                                    <Title title={titleArr[item]} />
+                                                                    <div className={'flex flex-row text-gray-700 text-2xl'}>
                                                                         <div {...provided.dragHandleProps}>
                                                                             <Tooltip
                                                                                 className={'mr-3'}
-                                                                                title="移动模块"
+                                                                                title="拖拽调整顺序"
                                                                             >
                                                                                 <DragOutlined
-                                                                                    className={'text-gray-700 text-2xl change-c'}
+                                                                                    className={' change-c'}
                                                                                 />
                                                                             </Tooltip>
                                                                         </div>
                                                                         <div>
                                                                             <Tooltip title="删除模块">
                                                                                 <DeleteOutlined
-                                                                                    className={'text-gray-700 text-2xl change-c'}
+                                                                                    className={'change-c'}
                                                                                     onClick={
                                                                                         () => {
                                                                                             handleDelModule(item, index)
@@ -179,9 +179,7 @@ export default function HomePage() {
                     </Droppable>
                 </DragDropContext>
                 <div className='mt-12'>
-                    <div className='w-full flex justify-between items-center mb-6'>
-                        <div className='title'>添加模块</div>
-                    </div>
+                    <Title title={'添加模块'} />
                     <div className={'flex flex-wrap'}>
                         {
                             Object.keys(module).map((item, index) => {

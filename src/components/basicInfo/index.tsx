@@ -73,9 +73,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
     ]
     return (
         <div className='mt-12'>
-            <div className='w-full flex justify-between items-center mb-6'>
-                <div className='title'>基础信息</div>
-            </div>
+            <Title title={'基础信息'} />
             <div className='content-box'>
                 {
                     Object.keys(data[TYPE]).map((item, index) => {

@@ -4,7 +4,7 @@ import _ from 'lodash'
 import FormItem from "../form-item";
 import {Button, Collapse, Divider, Input, Tooltip} from "antd";
 import MyTextArea from "../text-area";
-import {CaretRightOutlined, DeleteOutlined, PlusCircleFilled, SettingOutlined} from "@ant-design/icons";
+import {CaretRightOutlined, DeleteOutlined, PlusCircleFilled, RightOutlined, SettingOutlined} from "@ant-design/icons";
 import {DEFAULT_SINGLE, DEFAULT_SUBTITLE} from "../../constants/default";
 
 const {Panel} = Collapse;
@@ -14,10 +14,10 @@ interface props {
     setData: any,
     type: string,
     title: string,
-    handleDelModule?:any
+    handleDelModule?: any
 }
 
-const Experience: React.FunctionComponent<props> = ({data, setData, type, title,handleDelModule}) => {
+const Experience: React.FunctionComponent<props> = ({data, setData, type, title, handleDelModule}) => {
     const [state, setState] = useState(data[type])
     const single = DEFAULT_SINGLE[type]
     const subtitle = DEFAULT_SUBTITLE[type]
@@ -61,7 +61,15 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title,
                         return (
                             <Collapse
                                 expandIconPosition={'end'}
-                                className='mb-3 w-full'
+                                className='mb-3 w-full rounded-md bg-white collapse-box'
+                                expandIcon={
+                                    ({isActive}) =>
+                                        <RightOutlined
+                                            style={{fontSize: 16, lineHeight: 18}}
+                                            rotate={isActive ? 90 : 0}
+                                            className={'change-c'}
+                                        />
+                                }
                             >
                                 <Panel
                                     header={
@@ -102,8 +110,8 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title,
                                                     <span>{s.time ? s.time : subtitle?.time}</span>
                                                 </div>
                                             </div>
-                                            <Tooltip title="删除">
-                                                <DeleteOutlined className={'text-gray-700'} onClick={() => {
+                                            <Tooltip title="删除" className={'del-btn'}>
+                                                <DeleteOutlined className={'text-gray-700 text-lg change-c'} onClick={() => {
                                                     handelDelModule(index)
                                                 }}/>
                                             </Tooltip>

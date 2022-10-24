@@ -15,7 +15,7 @@ const Title: React.FunctionComponent<props> = ({title,handleDelModule}) => {
             {
                 handleDelModule &&
                 <Tooltip title="删除模块">
-                    <DeleteOutlined className={'text-gray-700 text-lg'} onClick={handleDelModule}/>
+                    <DeleteOutlined className={'text-gray-700 text-2xl change-c'} onClick={handleDelModule}/>
                 </Tooltip>
             }
         </div>

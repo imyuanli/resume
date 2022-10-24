@@ -18,3 +18,14 @@
     height: 4px;
     background-color: #3370ff;
 }
+
+.collapse-box:hover .del-btn{
+    display: block;
+}
+
+.del-btn{
+    display: none;
+}
+.change-c:hover{
+    color:#40a9ff
+}

@@ -18,6 +18,10 @@ const routes: RouteObject[] = [
     {
         path: '/test',
         element: lazyLoad("text")
+    },
+    {
+        path: '/template',
+        element: lazyLoad("template")
     }
 ]
 export default routes

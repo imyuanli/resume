@@ -16,7 +16,7 @@ const Other: React.FunctionComponent<props> = ({data, setData,title,type}) => {
     const [state, setSate] = useState(data[type])
     useEffect(() => {
         setData({
-            type:state
+            [type]:state
         })
     }, [state])
     return (

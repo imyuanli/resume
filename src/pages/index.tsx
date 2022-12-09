@@ -1,9 +1,16 @@
-import {DeleteOutlined, DownloadOutlined, DragOutlined, FieldTimeOutlined, PlusOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    DownloadOutlined,
+    DragOutlined, EyeOutlined,
+    MailOutlined, PhoneOutlined,
+    PlusOutlined,
+    UserOutlined, WechatOutlined
+} from "@ant-design/icons";
 import {
     DEFAULT_DATA,
     DEFAULT_MODULE_BLOCK,
     DEFAULT_MODULE_NONE,
-    DEFAULT_TITLE
+    DEFAULT_TITLE, MOCK_DATA
 } from "../constants/default";
 import {useSetState} from "ahooks";
 import BaseInfo from "../components/basicInfo";
@@ -14,7 +21,7 @@ import React, {useEffect, useRef, useState} from "react";
 import _ from "lodash";
 import Title from "../components/title";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
-import {Button, Tooltip} from "antd";
+import {Button, Divider, Drawer, Modal, Tooltip} from "antd";
 import {exportPDF} from "../utils";
 import store from "store";
 
@@ -62,9 +69,7 @@ export default function HomePage() {
     //导出
     const pdfRef = useRef(null)
     const onExportPDF = async () => {
-        console.log(data)
-        console.log(moduleBlock)
-        // await exportPDF('测试导出PDF', pdfRef.current)
+        await exportPDF('测试导出PDF', pdfRef.current)
     }
 
     //拖拽
@@ -79,29 +84,43 @@ export default function HomePage() {
         moduleList.splice(destinationIndex, 0, draggedItem);
         setModuleBlock(_.cloneDeep(moduleList))
     }
+
+    const {
+        basicInfo: {
+            userName,
+        },
+    } = MOCK_DATA
+
+    const [isModalOpen, setIsModalOpen] = useState(true)
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     return (
         <div className='index'>
             <div className='header'>
                 <div className='header-left'>
-                    <div>我的我的</div>
-                    <div className='header-time'>
-                        <FieldTimeOutlined className='mr-1'/>
-                        <span>最近更新: 2022-08-03 10:54</span>
-                    </div>
+                    <div>简历制作</div>
+                    {/*<div className='header-time'>*/}
+                    {/*    <FieldTimeOutlined className='mr-1'/>*/}
+                    {/*    <span>最近更新: 2022-08-03 10:54</span>*/}
+                    {/*</div>*/}
                 </div>
-                <div className='header-right'>
-                    <div className='header-right-btn' onClick={onExportPDF}>
+                <div className='header-right flex'>
+                    <div className='header-right-btn mr-3' onClick={onExportPDF}>
                         <DownloadOutlined className='mr-1'/>
                         导出
                     </div>
-                    {/*<div className='header-right-btn'>*/}
-                    {/*    <DownloadOutlined className='mr-1'/>*/}
-                    {/*    预览*/}
-                    {/*</div>*/}
+                    <div className='header-right-btn' onClick={showModal}>
+                        <EyeOutlined className='mr-1'/>
+                        预览
+                    </div>
                 </div>
             </div>
             <div className='banner'/>
-            <div className='main' ref={pdfRef}>
+            <div className='main'>
                 {/*/!*基础信息*!/*/}
                 <BaseInfo data={data} setData={setData}/>
                 {/*详细信息*/}
@@ -186,7 +205,7 @@ export default function HomePage() {
                     <Title title={'添加模块'}/>
                     <div className={'flex flex-wrap'}>
                         {
-                            moduleNone.map((item:any, index:any) => {
+                            moduleNone.map((item: any, index: any) => {
                                 return (
                                     <Button
                                         key={index}
@@ -205,7 +224,135 @@ export default function HomePage() {
                     </div>
                 </div>
             </div>
+            <Modal
+                footer={null}
+                open={isModalOpen}
+                onCancel={handleCancel}
+                width={832.23}
+                closable={false}
+            >
+                <div ref={pdfRef} className={`pdf-content p-9`}>
+                    <div className={'mb-9'}>
+                        <div className={'flex mb-1'}>
+                            {/*{*/}
+                            {/*    avatar &&*/}
+                            {/*    <img className={'w-16 mr-3'} src={require('../static/cv_template_world_cup_b.png')}*/}
+                            {/*         alt=""/>*/}
+                            {/*}*/}
+                            <div>
+                                {
+                                    userName && <h1>{userName}</h1>
+                                }
+                                {/*期望相关*/}
+                                {
+                                    <div>
+                                        <span className={'mr-3'}>求职意向:java</span>
+                                        <Divider type={'vertical'}/>
+                                        <span>期望城市:上海</span>
+                                        <Divider type={'vertical'}/>
+                                        <span>期望薪资:10k</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        {/*联系方式*/}
+                        <div className={'flex flex-row text-base items-center'}>
+                            <div className={'mr-6'}><UserOutlined className={'contact-icon'}/>女</div>
+                            <div className={'mr-6'}><PhoneOutlined className={'contact-icon'}/>123123123</div>
+                            <div className={'mr-6'}><WechatOutlined className={'contact-icon'}/>wxwx</div>
+                            <div><MailOutlined className={'contact-icon'}/>123123123@qq.com</div>
+                        </div>
+                    </div>
+                    {
+                        moduleBlock?.map((item: any, index: any) => {
+                            return (
+                                <div key={index} className={'mb-9'}>
+                                    <ResumeTitle value={titleArr[item?.module_name]}/>
+                                    {
+                                        (item?.module_name === "advantages" || item?.module_name === "skill" || item?.module_name === "hobby" || item?.module_name === "honor") ?
+                                            <ResumeText value={MOCK_DATA[item?.module_name]}/>
+                                            :
+                                            <ExperienceContent value={MOCK_DATA[item?.module_name]}/>
+                                    }
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className={'p-2 flex justify-center items-center'}>
+                    <Button size={'large'} type={'primary'} onClick={onExportPDF}>导出</Button>
+                </div>
+            </Modal>
         </div>
     );
-
 }
+
+
+function ResumeTitle(props: any) {
+    const {value} = props
+    return (
+        <div className={'resume-title text-2xl font-bold mb-2'}>
+            {value}
+        </div>
+    )
+}
+
+function ResumeText(props: any) {
+    const {value} = props
+    return (
+        <div className={'text-base whitespace-pre-wrap'}>
+            {value}
+        </div>
+    )
+}
+
+function ExperienceContent(props: any) {
+    const {value} = props
+    return (
+        <>
+            {
+                value.map((item: any, index: number) => {
+                    const {name, time, position, describe, result, qualification} = item
+                    return (
+                        <div className={'mb-6'} key={index}>
+                            <div className={'flex justify-between text-lg mb-1'}>
+                                <div className={'flex'}>
+                                    {
+                                        name && <div className={'mr-6'}>{name}</div>
+                                    }
+                                    {
+                                        qualification && <div className={'mr-6'}>{qualification}</div>
+                                    }
+                                    {
+                                        position && <div className={'mr-6'}>{position}</div>
+                                    }
+                                </div>
+                                {
+                                    time && <div>{time}</div>
+                                }
+                            </div>
+                            <div className={'text-base whitespace-pre-wrap'}>
+                                {
+                                    describe &&
+                                    <div className={'mb-1'}>
+                                        <div className={'font-bold'}>内容:</div>
+                                        <div>{describe}</div>
+                                    </div>
+                                }
+                                {
+                                    result &&
+                                    <div>
+                                        <div className={'font-bold'}>业绩:</div>
+                                        <div>{result}</div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </>
+    )
+}
+

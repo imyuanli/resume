@@ -19,8 +19,8 @@ export const exportPDF = async (title:string, ele:any) => {
     const canvas = document.createElement('canvas');
     canvas.width = width * scale;
     canvas.height = height * scale;
-    var contentWidth = canvas.width;
-    var contentHeight = canvas.height;
+    let contentWidth = canvas.width;
+    let contentHeight = canvas.height;
 
     console.log('contentWidth', contentWidth, contentHeight)
     //一页pdf显示html页面生成的canvas高度;

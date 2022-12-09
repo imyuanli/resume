@@ -252,21 +252,8 @@ export const DEFAULT_SINGLE = {
     }
 }
 
-//展示的模块
-export const DEFAULT_MODULE_DISPLAY = {
-    education: true,
-    advantages: true,
-    internship: true,
-    project: true,
-    work: true,
-    volunteer: false,
-    society: false,
-    skill: false,
-    hobby: false,
-    honor: false,
-}
-
-export const DEFAULT_MODULE_BLOCK= [
+//模块
+export const DEFAULT_MODULE_BLOCK = [
     {
         module_name: "advantages",
         module_display: true,
@@ -288,7 +275,7 @@ export const DEFAULT_MODULE_BLOCK= [
         module_display: true,
     },
 ]
-export const DEFAULT_MODULE_NONE= [
+export const DEFAULT_MODULE_NONE = [
     {
         module_name: "volunteer",
         module_display: false,

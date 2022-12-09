@@ -1,9 +1,8 @@
 import {DeleteOutlined, DownloadOutlined, DragOutlined, FieldTimeOutlined, PlusOutlined} from "@ant-design/icons";
 import {
     DEFAULT_DATA,
-    // DEFAULT_MODULE,
     DEFAULT_MODULE_BLOCK,
-    DEFAULT_MODULE_DISPLAY, DEFAULT_MODULE_NONE,
+    DEFAULT_MODULE_NONE,
     DEFAULT_TITLE
 } from "../constants/default";
 import {useSetState} from "ahooks";
@@ -62,7 +61,6 @@ export default function HomePage() {
 
     //导出
     const pdfRef = useRef(null)
-
     const onExportPDF = async () => {
         console.log(data)
         console.log(moduleBlock)

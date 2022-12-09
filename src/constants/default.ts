@@ -157,7 +157,7 @@ export const DEFAULT_PLACEHOLDER = {
         city: '请选择期望城市',
         salary: '请输入薪资',
     },
-    advantages: " 1.熟练使用React，vue等mvx框架及周边生态工具\n 2.熟练使用taro和uiapp开发多端，包括小程序，h5，pc\n 3.精通HTML5、CSS3、JS等，熟练使用jquery\n4.熟练使用ajax及axios做前后端分离项目\n5.熟练使用git进行协作开发\n6.熟悉es6新特性及模块化规范\n7.熟练使用antd，elementui等ui框架\n 8.有全栈开发能力，熟练使用django 和 fastapi开发后台及使用jinjia2进行SSR渲染，熟悉mysql，熟悉nodejs\n9.熟练使用dva，redux，umi开发react项目",
+    advantages: "例如：两年UI设计经验，熟悉IOS和Android的界面设计规范，对产品本色有独特见解，有一定的手绘基础",
     education: {
         name: '例如：清华大学',
         qualification: '选择学历',

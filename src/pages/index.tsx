@@ -70,15 +70,6 @@ export default function HomePage() {
     //导出
     const pdfRef = useRef(null)
     const onExportPDF = async () => {
-        // await html2PDF(pdfRef.current, {
-        //     jsPDF: {
-        //         format: 'a4',
-        //         unit: 'px',
-        //     },
-        //     imageType: 'image/jpeg',
-        //     output: '测试导出PDF.pdf',
-        //     imageQuality:0
-        // });
         await exportPDF(`${data?.basicInfo?.userName}-${data?.basicInfo?.position}.pdf`, pdfRef.current)
     }
 
@@ -115,10 +106,6 @@ export default function HomePage() {
                     <div>简历制作</div>
                 </div>
                 <div className='header-right flex'>
-                    {/*<div className='header-right-btn mr-3' onClick={onExportPDF}>*/}
-                    {/*    <DownloadOutlined className='mr-1'/>*/}
-                    {/*    导出*/}
-                    {/*</div>*/}
                     <div className='header-right-btn' onClick={showModal}>
                         {/*<EyeOutlined className='mr-1'/>*/}
                         预览&导出
@@ -247,26 +234,63 @@ export default function HomePage() {
                             {/*}*/}
                             <div>
                                 {
-                                    userName && <h1>{data?.basicInfo?.userName}</h1>
+                                    data?.basicInfo?.userName && <h1>{data?.basicInfo?.userName}</h1>
                                 }
                                 {/*期望相关*/}
                                 {
                                     <div>
-                                        <span className={'mr-3'}>求职意向:{data?.basicInfo?.position}</span>
-                                        <Divider type={'vertical'}/>
-                                        <span>期望城市:{data?.basicInfo?.city}</span>
-                                        <Divider type={'vertical'}/>
-                                        <span>期望薪资:{data?.basicInfo?.salary}</span>
+                                        {
+                                            data?.basicInfo?.position &&
+                                            <>
+                                                <span className={'mr-3'}>求职意向:{data?.basicInfo?.position}</span>
+                                                <Divider type={'vertical'}/>
+                                            </>
+                                        }
+                                        {
+                                            data?.basicInfo?.city &&
+                                            <>
+                                                <span>期望城市:{data?.basicInfo?.city}</span>
+                                                <Divider type={'vertical'}/>
+                                            </>
+                                        }
+                                        {
+                                            data?.basicInfo?.salary && <span>期望薪资:{data?.basicInfo?.salary}</span>
+                                        }
                                     </div>
                                 }
                             </div>
                         </div>
                         {/*联系方式*/}
                         <div className={'flex flex-row text-base items-center'}>
-                            <div className={'mr-6'}><UserOutlined className={'contact-icon'}/>{data?.basicInfo?.gender}</div>
-                            <div className={'mr-6'}><PhoneOutlined className={'contact-icon'}/>{data?.basicInfo?.phone}</div>
-                            <div className={'mr-6'}><WechatOutlined className={'contact-icon'}/>{data?.basicInfo?.weChatNumber}</div>
-                            <div><MailOutlined className={'contact-icon'}/>{data?.basicInfo?.email}</div>
+                            {
+                                data?.basicInfo?.gender
+                                &&
+                                <div className={'mr-6'}>
+                                    <UserOutlined className={'contact-icon'}/>
+                                    {data?.basicInfo?.gender}
+                                </div>
+                            }
+                            {
+                                data?.basicInfo?.gender
+                                &&
+                                <div className={'mr-6'}>
+                                    <PhoneOutlined className={'contact-icon'}/>{data?.basicInfo?.phone}
+                                </div>
+                            }
+                            {
+                                data?.basicInfo?.weChatNumber
+                                &&
+                                <div className={'mr-6'}>
+                                    <WechatOutlined className={'contact-icon'}/>{data?.basicInfo?.weChatNumber}
+                                </div>
+                            }
+                            {
+                                data?.basicInfo?.email
+                                &&
+                                <div className={'mr-6'}>
+                                    <MailOutlined className={'contact-icon'}/>{data?.basicInfo?.email}
+                                </div>
+                            }
                         </div>
                     </div>
                     {

@@ -21,7 +21,8 @@ import React, {useEffect, useRef, useState} from "react";
 import _ from "lodash";
 import Title from "../components/title";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
-import {Button, Divider, Drawer, Modal, Tooltip} from "antd";
+// import html2PDF from 'jspdf-html2canvas'
+import {Button, Divider, Modal, Tooltip} from "antd";
 import {exportPDF} from "../utils";
 import store from "store";
 
@@ -69,7 +70,16 @@ export default function HomePage() {
     //导出
     const pdfRef = useRef(null)
     const onExportPDF = async () => {
-        await exportPDF('测试导出PDF', pdfRef.current)
+        // await html2PDF(pdfRef.current, {
+        //     jsPDF: {
+        //         format: 'a4',
+        //         unit: 'px',
+        //     },
+        //     imageType: 'image/jpeg',
+        //     output: '测试导出PDF.pdf',
+        //     imageQuality:0
+        // });
+        await exportPDF(`${data?.basicInfo?.userName}-${data?.basicInfo?.position}.pdf`, pdfRef.current)
     }
 
     //拖拽
@@ -91,7 +101,7 @@ export default function HomePage() {
         },
     } = MOCK_DATA
 
-    const [isModalOpen, setIsModalOpen] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -103,19 +113,15 @@ export default function HomePage() {
             <div className='header'>
                 <div className='header-left'>
                     <div>简历制作</div>
-                    {/*<div className='header-time'>*/}
-                    {/*    <FieldTimeOutlined className='mr-1'/>*/}
-                    {/*    <span>最近更新: 2022-08-03 10:54</span>*/}
-                    {/*</div>*/}
                 </div>
                 <div className='header-right flex'>
-                    <div className='header-right-btn mr-3' onClick={onExportPDF}>
-                        <DownloadOutlined className='mr-1'/>
-                        导出
-                    </div>
+                    {/*<div className='header-right-btn mr-3' onClick={onExportPDF}>*/}
+                    {/*    <DownloadOutlined className='mr-1'/>*/}
+                    {/*    导出*/}
+                    {/*</div>*/}
                     <div className='header-right-btn' onClick={showModal}>
-                        <EyeOutlined className='mr-1'/>
-                        预览
+                        {/*<EyeOutlined className='mr-1'/>*/}
+                        预览&导出
                     </div>
                 </div>
             </div>
@@ -241,26 +247,26 @@ export default function HomePage() {
                             {/*}*/}
                             <div>
                                 {
-                                    userName && <h1>{userName}</h1>
+                                    userName && <h1>{data?.basicInfo?.userName}</h1>
                                 }
                                 {/*期望相关*/}
                                 {
                                     <div>
-                                        <span className={'mr-3'}>求职意向:java</span>
+                                        <span className={'mr-3'}>求职意向:{data?.basicInfo?.position}</span>
                                         <Divider type={'vertical'}/>
-                                        <span>期望城市:上海</span>
+                                        <span>期望城市:{data?.basicInfo?.city}</span>
                                         <Divider type={'vertical'}/>
-                                        <span>期望薪资:10k</span>
+                                        <span>期望薪资:{data?.basicInfo?.salary}</span>
                                     </div>
                                 }
                             </div>
                         </div>
                         {/*联系方式*/}
                         <div className={'flex flex-row text-base items-center'}>
-                            <div className={'mr-6'}><UserOutlined className={'contact-icon'}/>女</div>
-                            <div className={'mr-6'}><PhoneOutlined className={'contact-icon'}/>123123123</div>
-                            <div className={'mr-6'}><WechatOutlined className={'contact-icon'}/>wxwx</div>
-                            <div><MailOutlined className={'contact-icon'}/>123123123@qq.com</div>
+                            <div className={'mr-6'}><UserOutlined className={'contact-icon'}/>{data?.basicInfo?.gender}</div>
+                            <div className={'mr-6'}><PhoneOutlined className={'contact-icon'}/>{data?.basicInfo?.phone}</div>
+                            <div className={'mr-6'}><WechatOutlined className={'contact-icon'}/>{data?.basicInfo?.weChatNumber}</div>
+                            <div><MailOutlined className={'contact-icon'}/>{data?.basicInfo?.email}</div>
                         </div>
                     </div>
                     {
@@ -270,9 +276,9 @@ export default function HomePage() {
                                     <ResumeTitle value={titleArr[item?.module_name]}/>
                                     {
                                         (item?.module_name === "advantages" || item?.module_name === "skill" || item?.module_name === "hobby" || item?.module_name === "honor") ?
-                                            <ResumeText value={MOCK_DATA[item?.module_name]}/>
+                                            <ResumeText value={data[item?.module_name]}/>
                                             :
-                                            <ExperienceContent value={MOCK_DATA[item?.module_name]}/>
+                                            <ExperienceContent value={data[item?.module_name]}/>
                                     }
                                 </div>
                             )

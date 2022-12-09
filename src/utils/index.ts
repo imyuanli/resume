@@ -10,7 +10,7 @@ export const exportPDF = async (title:string, ele:any) => {
     // 根据dpi放大，防止图片模糊
     const scale = window.devicePixelRatio > 1 ? window.devicePixelRatio : 2;
     // 下载尺寸 a4 纸 比例
-    let pdf = new jsPDF('p', 'pt', 'a4');
+    let pdf = new jsPDF('p', 'px', 'a4');
     let width = ele.offsetWidth;
     let height = ele.offsetHeight;
     console.log('height', height)

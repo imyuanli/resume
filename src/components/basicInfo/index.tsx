@@ -48,7 +48,7 @@ const BaseInfo: React.FunctionComponent<props> = ({data, setData}) => {
             :
             {
                 userName: true,
-                avatar: true,
+                avatar: false,
                 position: true,
                 gender: true,
                 email: true,

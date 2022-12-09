@@ -22,7 +22,7 @@ import _ from "lodash";
 import Title from "../components/title";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 // import html2PDF from 'jspdf-html2canvas'
-import {Button, Divider, Modal, Tooltip} from "antd";
+import {Button, Divider, message, Modal, Tooltip} from "antd";
 import {exportPDF} from "../utils";
 import store from "store";
 
@@ -86,12 +86,7 @@ export default function HomePage() {
         setModuleBlock(_.cloneDeep(moduleList))
     }
 
-    const {
-        basicInfo: {
-            userName,
-        },
-    } = MOCK_DATA
-
+    //导出弹窗
     const [isModalOpen, setIsModalOpen] = useState(false)
     const showModal = () => {
         setIsModalOpen(true);
@@ -99,6 +94,13 @@ export default function HomePage() {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
+    //移动端 提示去pc
+    useEffect(()=>{
+        if(window.innerWidth <768){
+            message.warning('建议pc端制作简历')
+        }
+    },[])
     return (
         <div className='index'>
             <div className='header'>

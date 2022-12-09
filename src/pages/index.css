@@ -39,12 +39,19 @@
     width: 85%;
     margin: 30px auto;
     max-width: 966px;
-    height: 126px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1;
     color: white;
+}
+
+@media (max-width:768px){
+    .main {
+        width: 95%;
+        padding: 8px 20px 40px;
+    }
+
 }
 
 .header-left {

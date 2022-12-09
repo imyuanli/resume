@@ -74,9 +74,9 @@ export const DEFAULT_TITLE = {
     advantages: "个人优势",
     education: "教育经历",
     internship: "实习经历",
-    project:"项目经历",
+    project: "项目经历",
     work: "工作经历",
-    volunteer:"志愿者经历",
+    volunteer: "志愿者经历",
     society: "社团经历",
     skill: '专业技能',
     hobby: '兴趣爱好',
@@ -254,8 +254,8 @@ export const DEFAULT_SINGLE = {
 
 //展示的模块
 export const DEFAULT_MODULE_DISPLAY = {
-    advantages: true,
     education: true,
+    advantages: true,
     internship: true,
     project: true,
     work: true,
@@ -266,7 +266,52 @@ export const DEFAULT_MODULE_DISPLAY = {
     honor: false,
 }
 
-export const MOCK_DATA={
+export const DEFAULT_MODULE_BLOCK= [
+    {
+        module_name: "advantages",
+        module_display: true,
+    },
+    {
+        module_name: "education",
+        module_display: true,
+    },
+    {
+        module_name: "internship",
+        module_display: true,
+    },
+    {
+        module_name: "project",
+        module_display: true,
+    },
+    {
+        module_name: "work",
+        module_display: true,
+    },
+]
+export const DEFAULT_MODULE_NONE= [
+    {
+        module_name: "volunteer",
+        module_display: false,
+    },
+    {
+        module_name: "society",
+        module_display: false,
+    },
+    {
+        module_name: "skill",
+        module_display: false,
+    },
+    {
+        module_name: "hobby",
+        module_display: false,
+    },
+    {
+        module_name: "honor",
+        module_display: true,
+    }
+]
+
+export const MOCK_DATA = {
     basicInfo: {
         userName: '姓名',
         avatar: '头像',

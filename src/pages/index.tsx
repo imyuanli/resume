@@ -1,5 +1,11 @@
 import {DeleteOutlined, DownloadOutlined, DragOutlined, FieldTimeOutlined, PlusOutlined} from "@ant-design/icons";
-import {DEFAULT_DATA, DEFAULT_MODULE_DISPLAY, DEFAULT_TITLE} from "../constants/default";
+import {
+    DEFAULT_DATA,
+    // DEFAULT_MODULE,
+    DEFAULT_MODULE_BLOCK,
+    DEFAULT_MODULE_DISPLAY, DEFAULT_MODULE_NONE,
+    DEFAULT_TITLE
+} from "../constants/default";
 import {useSetState} from "ahooks";
 import BaseInfo from "../components/basicInfo";
 import Other from "../components/other";
@@ -11,60 +17,56 @@ import Title from "../components/title";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {Button, Tooltip} from "antd";
 import {exportPDF} from "../utils";
+import store from "store";
 
 export default function HomePage() {
     const [data, setData] = useSetState(DEFAULT_DATA)
-    const [module, setModule] = useState(DEFAULT_MODULE_DISPLAY)
-    //让显示的模块拥有顺序
-    const [blockModule, setBlockModule] = useState([])
-    //默认标题
+    //控制模块
+    const [moduleBlock, setModuleBlock] = useState(
+        store.get('local_module_block') ?
+            store.get('local_module_block')
+            :
+            DEFAULT_MODULE_BLOCK
+    )
+    const [moduleNone, setModuleNone] = useState(
+        store.get('local_module_none') ?
+            store.get('local_module_none')
+            :
+            DEFAULT_MODULE_NONE
+    )
+
+    //默认标题模块拥有顺序
     const titleArr = DEFAULT_TITLE
-    useEffect(() => {
-        let arr: any = []
-        Object.keys(module).map((item) => {
-            if (module[item]) arr.push(item)
-        })
-        setBlockModule(_.cloneDeep(arr))
-    }, [])
-
-    // useEffect(() => {
-    //     console.log(module)
-    //     console.log(blockModule)
-    // }, [module, blockModule])
-
-    //删除模块 （并让模块用）
-    const handleDelModule = (item: string, index: number) => {
-        const arr = _.cloneDeep(blockModule)
-        arr.splice(index, 1)
-        setBlockModule(_.cloneDeep(arr))
-        handleChangeModule(item, true)
-    }
-
-    //控制模块内部的显示
-    const handleChangeModule = (item: string, isDel = false) => {
-        const obj = _.cloneDeep(module)
-        if (isDel) {
-            obj[item] = false
-        } else {
-            obj[item] = true
-        }
-        setModule(_.cloneDeep(obj))
-    }
 
     //新增模块
-    const handleAddModule = (item: string) => {
-        const arr = _.cloneDeep(blockModule)
-        arr.push(item)
-        setBlockModule(_.cloneDeep(arr))
-        handleChangeModule(item)
+    const handleAddModule = (item: any, index: any) => {
+        const res = _.cloneDeep(moduleNone)
+        res.splice(index, 1)
+        setModuleNone(_.cloneDeep(res))
+        setModuleBlock([...moduleBlock, item])
     }
 
+    //删除模块
+    const handleDelModule = (item: any, index: any) => {
+        const res = _.cloneDeep(moduleBlock)
+        res.splice(index, 1)
+        setModuleBlock(_.cloneDeep(res))
+        setModuleNone([...moduleNone, item])
+    }
+
+    // 只要更改就去更新本地的数据
+    useEffect(() => {
+        store.set('local_module_block', moduleBlock)
+        store.set('local_module_none', moduleNone)
+    }, [moduleBlock, moduleNone])
 
     //导出
     const pdfRef = useRef(null)
 
     const onExportPDF = async () => {
-        await exportPDF('测试导出PDF', pdfRef.current)
+        console.log(data)
+        console.log(moduleBlock)
+        // await exportPDF('测试导出PDF', pdfRef.current)
     }
 
     //拖拽
@@ -74,10 +76,10 @@ export default function HomePage() {
         if (sourceIndex === destinationIndex) {
             return;
         }
-        const userList = _.cloneDeep(blockModule);
-        const [draggedItem] = userList.splice(sourceIndex, 1);
-        userList.splice(destinationIndex, 0, draggedItem);
-        setBlockModule(_.cloneDeep(userList))
+        const moduleList = _.cloneDeep(moduleBlock);
+        const [draggedItem] = moduleList.splice(sourceIndex, 1);
+        moduleList.splice(destinationIndex, 0, draggedItem);
+        setModuleBlock(_.cloneDeep(moduleList))
     }
     return (
         <div className='index'>
@@ -104,34 +106,39 @@ export default function HomePage() {
             <div className='main' ref={pdfRef}>
                 {/*/!*基础信息*!/*/}
                 <BaseInfo data={data} setData={setData}/>
+                {/*详细信息*/}
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId={_.uniqueId("droppableId")}>
-                        {(provided: any,snapshot:any) => {
+                        {(provided: any, snapshot: any) => {
                             return (
                                 <div
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                 >
                                     {
-                                        blockModule?.map((item, index) => {
+                                        moduleBlock?.map((item: any, index: any) => {
                                             return (
-                                                <Draggable key={item} draggableId={item} index={index}>
+                                                //显示出现的module
+                                                <Draggable key={item?.module_name} draggableId={item?.module_name}
+                                                           index={index}>
                                                     {(provided, snapshot,) => {
                                                         return (
                                                             <div className={'mt-12'}
                                                                  ref={provided.innerRef}
                                                                  {...provided.draggableProps}
                                                             >
-                                                                <div className='w-full flex justify-between items-center mb-4'>
-                                                                    <Title title={titleArr[item]} />
-                                                                    <div className={'flex flex-row text-gray-700 text-2xl'}>
+                                                                <div
+                                                                    className='w-full flex justify-between items-center mb-4'>
+                                                                    <Title title={titleArr[item?.module_name]}/>
+                                                                    <div
+                                                                        className={'flex flex-row text-gray-700 text-2xl'}>
                                                                         <div {...provided.dragHandleProps}>
                                                                             <Tooltip
                                                                                 className={'mr-3'}
                                                                                 title="拖拽调整顺序"
                                                                             >
                                                                                 <DragOutlined
-                                                                                    className={' change-c'}
+                                                                                    className={'change-c'}
                                                                                 />
                                                                             </Tooltip>
                                                                         </div>
@@ -149,19 +156,19 @@ export default function HomePage() {
                                                                     </div>
                                                                 </div>
                                                                 {
-                                                                    (item === "advantages" || item === "skill" || item === "hobby" || item === "honor") ?
+                                                                    (item?.module_name === "advantages" || item?.module_name === "skill" || item?.module_name === "hobby" || item?.module_name === "honor") ?
                                                                         <Other
                                                                             data={data}
                                                                             setData={setData}
-                                                                            type={item}
-                                                                            title={titleArr[item]}
+                                                                            type={item?.module_name}
+                                                                            title={titleArr[item?.module_name]}
                                                                         />
                                                                         :
                                                                         <Experience
                                                                             data={data}
                                                                             setData={setData}
-                                                                            type={item}
-                                                                            title={titleArr[item]}
+                                                                            type={item?.module_name}
+                                                                            title={titleArr[item?.module_name]}
                                                                         />
                                                                 }
                                                             </div>
@@ -178,22 +185,21 @@ export default function HomePage() {
                     </Droppable>
                 </DragDropContext>
                 <div className='mt-12'>
-                    <Title title={'添加模块'} />
+                    <Title title={'添加模块'}/>
                     <div className={'flex flex-wrap'}>
                         {
-                            Object.keys(module).map((item, index) => {
+                            moduleNone.map((item:any, index:any) => {
                                 return (
-                                    !module[item] &&
                                     <Button
                                         key={index}
                                         onClick={() => {
-                                            handleAddModule(item)
+                                            handleAddModule(item, index)
                                         }}
                                         type="dashed"
                                         className={'m-3'}
                                         icon={<PlusOutlined className={'mr-1'}/>}
                                     >
-                                        {titleArr[item]}
+                                        {titleArr[item?.module_name]}
                                     </Button>
                                 )
                             })

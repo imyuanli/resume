@@ -111,8 +111,7 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title}
                                                                 header={
                                                                     <div className='flex justify-between items-center'>
                                                                         <div>
-                                                                            <div
-                                                                                className={'text-base text-gray-700 mb-1'}>{s.name ? s.name : `未填写${subtitle?.name}`}</div>
+                                                                            <div className={'text-base text-gray-700 mb-1'}>{s.name ? s.name : `未填写${subtitle?.name}`}</div>
                                                                             <div className={'text-sm text-gray-500'}>
                                                                                 {
                                                                                     type === 'education' &&
@@ -122,25 +121,11 @@ const Experience: React.FunctionComponent<props> = ({data, setData, type, title}
                                                                                         <span>{s.major ? s.major : subtitle?.major}</span>
                                                                                     </>
                                                                                 }
-                                                                                {
-                                                                                    (type === 'internship' || type === 'work')
-                                                                                    &&
-                                                                                    <span>{s.positionType ? s.positionType : subtitle?.positionType}</span>
-                                                                                }
-                                                                                {
-                                                                                    type === 'project'
-                                                                                    &&
-                                                                                    <span>{s.role ? s.role : subtitle.role}</span>
-                                                                                }
+                                                                                <span>{s.position ? s.position : subtitle?.position}</span>
                                                                                 {
                                                                                     type === 'volunteer'
                                                                                     &&
                                                                                     <span>{s.duration ? s.duration : subtitle.duration}</span>
-                                                                                }
-                                                                                {
-                                                                                    type === 'society'
-                                                                                    &&
-                                                                                    <span>{s.role ? s.role : subtitle.role}</span>
                                                                                 }
                                                                                 <Divider type={'vertical'}/>
                                                                                 <span>{s.time ? s.time : subtitle?.time}</span>
